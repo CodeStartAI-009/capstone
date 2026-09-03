@@ -1,0 +1,19 @@
+field,value
+dataset_name,PhiUSIIL Phishing URL Dataset
+source_file,PhiUSIIL_Phishing_URL_Dataset.csv
+total_rows_after_deduplication,235795
+total_columns,56
+feature_count,55
+label_column,label
+label_0,phishing
+label_1,legitimate
+train_rows,188636
+validation_rows,23579
+test_rows,23580
+split_ratio,80% train / 10% validation / 10% test
+split_method,"stratified split, random_state=42"
+traditional_ml_models,Logistic Regression; SVM; Random Forest; Gradient Boosting; XGBoost; MLP
+transformer_model,DistilBERT
+traditional_ml_input,Engineered URL/web features
+distilbert_input,URL text
+duplicate_handling,Exact duplicate rows removed before splitting
