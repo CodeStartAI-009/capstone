@@ -1,0 +1,77 @@
+{
+  "measured_at": "2026-09-29T19:27:32+0530",
+  "environment": {
+    "python": "3.9.6",
+    "machine": "arm64",
+    "system": "Darwin",
+    "server": "Flask development server (python app.py), threaded"
+  },
+  "startup_until_model_loaded_ms": 826.2,
+  "predict_sequential_record_true_client": {
+    "n": 200,
+    "mean_ms": 3.9,
+    "median_ms": 3.85,
+    "p95_ms": 4.34,
+    "max_ms": 5.15,
+    "min_ms": 3.13
+  },
+  "predict_sequential_record_true_server_timing": {
+    "n": 200,
+    "mean_ms": 1.26,
+    "median_ms": 1.22,
+    "p95_ms": 1.49,
+    "max_ms": 1.65,
+    "min_ms": 1.14
+  },
+  "predict_sequential_record_false_client": {
+    "n": 200,
+    "mean_ms": 1.91,
+    "median_ms": 1.94,
+    "p95_ms": 2.09,
+    "max_ms": 2.75,
+    "min_ms": 1.61
+  },
+  "predict_sequential_record_false_server_timing": {
+    "n": 200,
+    "mean_ms": 1.41,
+    "median_ms": 1.45,
+    "p95_ms": 1.56,
+    "max_ms": 1.71,
+    "min_ms": 1.15
+  },
+  "predict_concurrent_8_threads_client": {
+    "n": 200,
+    "mean_ms": 18.55,
+    "median_ms": 15.53,
+    "p95_ms": 40.58,
+    "max_ms": 109.45,
+    "min_ms": 2.41
+  },
+  "predict_concurrent_throughput_per_s": 426.7,
+  "health_client": {
+    "n": 100,
+    "mean_ms": 0.39,
+    "median_ms": 0.38,
+    "p95_ms": 0.42,
+    "max_ms": 0.48,
+    "min_ms": 0.34
+  },
+  "history_page_client": {
+    "n": 100,
+    "mean_ms": 0.79,
+    "median_ms": 0.77,
+    "p95_ms": 0.92,
+    "max_ms": 1.14,
+    "min_ms": 0.72
+  },
+  "stats_client": {
+    "n": 50,
+    "mean_ms": 1.0,
+    "median_ms": 0.99,
+    "p95_ms": 1.09,
+    "max_ms": 1.19,
+    "min_ms": 0.91
+  },
+  "urls": "200 held-out test-split URLs; 0 rejected by validation (400)",
+  "history_rows_at_end": 400
+}

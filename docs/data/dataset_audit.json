@@ -1,0 +1,519 @@
+{
+  "phiusiil": {
+    "name": "PhiUSIIL Phishing URL Dataset",
+    "source_files": [
+      "data/train.csv",
+      "data/validation.csv",
+      "data/test.csv"
+    ],
+    "rows": 235795,
+    "columns": 56,
+    "target_column": "label",
+    "target_mapping": {
+      "0": "phishing",
+      "1": "legitimate"
+    },
+    "url_column": "URL",
+    "missing_values_total": 0,
+    "missing_values_by_column": {},
+    "unique_urls": 235370,
+    "duplicate_url_rows": 425,
+    "urls_that_are_duplicated": 425,
+    "rows_affected_by_duplicate_urls": 850,
+    "exact_duplicate_rows": 0,
+    "urls_with_conflicting_labels": 0,
+    "class_distribution": {
+      "phishing": 100945,
+      "legitimate": 134850
+    }
+  },
+  "splits": {
+    "original_random": {
+      "description": "data/{train,validation,test}.csv as supplied: random row-level split; the same URL can occur in several splits.",
+      "rows": {
+        "train": 188636,
+        "validation": 23579,
+        "test": 23580
+      },
+      "unique_urls": {
+        "train": 188370,
+        "validation": 23574,
+        "test": 23578
+      },
+      "duplicate_url_rows_within_split": {
+        "train": 266,
+        "validation": 5,
+        "test": 2
+      },
+      "class_distribution": {
+        "train": {
+          "phishing": 80756,
+          "legitimate": 107880
+        },
+        "validation": {
+          "phishing": 10094,
+          "legitimate": 13485
+        },
+        "test": {
+          "phishing": 10095,
+          "legitimate": 13485
+        }
+      },
+      "url_overlap": {
+        "train_validation": {
+          "shared_keys": 80,
+          "validation_rows_with_shared_key": 80
+        },
+        "train_test": {
+          "shared_keys": 63,
+          "test_rows_with_shared_key": 63
+        },
+        "validation_test": {
+          "shared_keys": 9,
+          "test_rows_with_shared_key": 9
+        }
+      },
+      "model_input_overlap": {
+        "train_validation": {
+          "shared_keys": 1242,
+          "validation_rows_with_shared_key": 2039
+        },
+        "train_test": {
+          "shared_keys": 1278,
+          "test_rows_with_shared_key": 2025
+        },
+        "validation_test": {
+          "shared_keys": 323,
+          "test_rows_with_shared_key": 1008
+        }
+      },
+      "registrable_domain_overlap": {
+        "train_validation": {
+          "shared_keys": 1923,
+          "validation_rows_with_shared_key": 4505
+        },
+        "train_test": {
+          "shared_keys": 1978,
+          "test_rows_with_shared_key": 4481
+        },
+        "validation_test": {
+          "shared_keys": 695,
+          "test_rows_with_shared_key": 3017
+        }
+      }
+    },
+    "url_grouped": {
+      "description": "data/clean_split (create_clean_split.py): stratified 80/10/10 over unique URLs, seed 42. Class distribution counts unique URLs.",
+      "rows": {
+        "train": 188646,
+        "validation": 23569,
+        "test": 23580
+      },
+      "unique_urls": {
+        "train": 188296,
+        "validation": 23537,
+        "test": 23537
+      },
+      "duplicate_url_rows_within_split": {
+        "train": 350,
+        "validation": 32,
+        "test": 43
+      },
+      "class_distribution": {
+        "train": {
+          "phishing": 80416,
+          "legitimate": 107880
+        },
+        "validation": {
+          "phishing": 10052,
+          "legitimate": 13485
+        },
+        "test": {
+          "phishing": 10052,
+          "legitimate": 13485
+        }
+      },
+      "url_overlap": {
+        "train_validation": {
+          "shared_keys": 0,
+          "validation_rows_with_shared_key": 0
+        },
+        "train_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        },
+        "validation_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        }
+      },
+      "model_input_overlap": {
+        "train_validation": {
+          "shared_keys": 1268,
+          "validation_rows_with_shared_key": 2049
+        },
+        "train_test": {
+          "shared_keys": 1254,
+          "test_rows_with_shared_key": 2042
+        },
+        "validation_test": {
+          "shared_keys": 323,
+          "test_rows_with_shared_key": 1024
+        }
+      },
+      "registrable_domain_overlap": {
+        "train_validation": {
+          "shared_keys": 1927,
+          "validation_rows_with_shared_key": 4494
+        },
+        "train_test": {
+          "shared_keys": 1953,
+          "test_rows_with_shared_key": 4479
+        },
+        "validation_test": {
+          "shared_keys": 704,
+          "test_rows_with_shared_key": 3045
+        }
+      }
+    },
+    "registrable_grouped": {
+      "description": "ml.dataset.load_registrable_grouped_split (final, model v2.0.0): URLs deduplicated and validated, then a stratified 80/10/10 split over registrable domains (Public Suffix List eTLD+1), seed 42. Built in memory; no files written.",
+      "preparation": {
+        "input_rows": 235795,
+        "duplicate_url_rows_removed": 425,
+        "rejected_by_url_validation": 8,
+        "rows_used": 235362,
+        "groups": 196046
+      },
+      "rows": {
+        "train": 187523,
+        "validation": 24784,
+        "test": 23055
+      },
+      "unique_urls": {
+        "train": 187523,
+        "validation": 24784,
+        "test": 23055
+      },
+      "duplicate_url_rows_within_split": {
+        "train": 0,
+        "validation": 0,
+        "test": 0
+      },
+      "class_distribution": {
+        "train": {
+          "phishing": 79617,
+          "legitimate": 107906
+        },
+        "validation": {
+          "phishing": 11275,
+          "legitimate": 13509
+        },
+        "test": {
+          "phishing": 9620,
+          "legitimate": 13435
+        }
+      },
+      "url_overlap": {
+        "train_validation": {
+          "shared_keys": 0,
+          "validation_rows_with_shared_key": 0
+        },
+        "train_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        },
+        "validation_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        }
+      },
+      "model_input_overlap": {
+        "train_validation": {
+          "shared_keys": 0,
+          "validation_rows_with_shared_key": 0
+        },
+        "train_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        },
+        "validation_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        }
+      },
+      "registrable_domain_overlap": {
+        "train_validation": {
+          "shared_keys": 0,
+          "validation_rows_with_shared_key": 0
+        },
+        "train_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        },
+        "validation_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        }
+      }
+    },
+    "host_grouped": {
+      "description": "ml.dataset.load_host_grouped_split (models v1.1.0/v1.2.0): URLs deduplicated and validated, then a stratified 80/10/10 split over model-input groups (https://www.<host>), seed 42. Built in memory; no files written.",
+      "preparation": {
+        "input_rows": 235795,
+        "duplicate_url_rows_removed": 425,
+        "rejected_by_url_validation": 8,
+        "rows_used": 235362,
+        "groups": 219098
+      },
+      "rows": {
+        "train": 188550,
+        "validation": 23276,
+        "test": 23536
+      },
+      "unique_urls": {
+        "train": 188550,
+        "validation": 23276,
+        "test": 23536
+      },
+      "duplicate_url_rows_within_split": {
+        "train": 0,
+        "validation": 0,
+        "test": 0
+      },
+      "class_distribution": {
+        "train": {
+          "phishing": 80671,
+          "legitimate": 107879
+        },
+        "validation": {
+          "phishing": 9791,
+          "legitimate": 13485
+        },
+        "test": {
+          "phishing": 10050,
+          "legitimate": 13486
+        }
+      },
+      "url_overlap": {
+        "train_validation": {
+          "shared_keys": 0,
+          "validation_rows_with_shared_key": 0
+        },
+        "train_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        },
+        "validation_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        }
+      },
+      "model_input_overlap": {
+        "train_validation": {
+          "shared_keys": 0,
+          "validation_rows_with_shared_key": 0
+        },
+        "train_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        },
+        "validation_test": {
+          "shared_keys": 0,
+          "test_rows_with_shared_key": 0
+        }
+      },
+      "registrable_domain_overlap": {
+        "train_validation": {
+          "shared_keys": 944,
+          "validation_rows_with_shared_key": 3137
+        },
+        "train_test": {
+          "shared_keys": 967,
+          "test_rows_with_shared_key": 3317
+        },
+        "validation_test": {
+          "shared_keys": 420,
+          "test_rows_with_shared_key": 2170
+        }
+      }
+    }
+  },
+  "original_notebook": {
+    "location": "projectcopy/url",
+    "found": true,
+    "dataset": {
+      "file": "phishing.csv (Kaggle 'phishing website detector', UCI-style -1/0/1 encoding)",
+      "rows": 11054,
+      "feature_columns": 30,
+      "target_column": "class (1 = legitimate, -1 = phishing)",
+      "has_url_column": false,
+      "missing_values_total": 0,
+      "duplicate_rows_ignoring_index": 5205,
+      "class_distribution": {
+        "-1": 4897,
+        "1": 6157
+      }
+    },
+    "model": {
+      "file": "Phishing_model.pkl (left untouched)",
+      "estimator_modules": [
+        "sklearn.dummy",
+        "sklearn.ensemble._gb",
+        "sklearn.ensemble._gb_losses",
+        "sklearn.tree._classes",
+        "sklearn.tree._tree"
+      ],
+      "trained_with_scikit_learn": "1.2.1",
+      "input_features": [
+        "UsingIP",
+        "PrefixSuffix-",
+        "SubDomains",
+        "HTTPS",
+        "NonStdPort",
+        "HTTPSDomainURL",
+        "RequestURL",
+        "AnchorURL",
+        "LinksInScriptTags",
+        "ServerFormHandler",
+        "InfoEmail",
+        "AbnormalURL",
+        "WebsiteForwarding",
+        "StatusBarCust",
+        "DisableRightClick",
+        "AgeofDomain",
+        "DNSRecording",
+        "WebsiteTraffic",
+        "PageRank",
+        "GoogleIndex",
+        "StatsReport"
+      ]
+    },
+    "feature_reproducibility": {
+      "definitions": {
+        "UsingIP": {
+          "needs": "url",
+          "definition": "IP address used as host"
+        },
+        "PrefixSuffix-": {
+          "needs": "url",
+          "definition": "'-' in the domain"
+        },
+        "SubDomains": {
+          "needs": "url",
+          "definition": "number of dots in the domain, bucketed to -1/0/1"
+        },
+        "HTTPS": {
+          "needs": "partial",
+          "definition": "HTTPS *and* a trusted issuer *and* certificate age >= 1 year; only the scheme is in the URL"
+        },
+        "NonStdPort": {
+          "needs": "partial",
+          "definition": "open-port scan of the server; only an explicit port is in the URL"
+        },
+        "HTTPSDomainURL": {
+          "needs": "url",
+          "definition": "'https' token inside the domain"
+        },
+        "RequestURL": {
+          "needs": "page",
+          "definition": "share of images/videos/sounds loaded from other domains"
+        },
+        "AnchorURL": {
+          "needs": "page",
+          "definition": "share of <a> tags pointing elsewhere or to '#'"
+        },
+        "LinksInScriptTags": {
+          "needs": "page",
+          "definition": "share of <meta>/<script>/<link> tags pointing elsewhere"
+        },
+        "ServerFormHandler": {
+          "needs": "page",
+          "definition": "form action empty, about:blank or another domain"
+        },
+        "InfoEmail": {
+          "needs": "page",
+          "definition": "mail() or mailto: used to submit data"
+        },
+        "AbnormalURL": {
+          "needs": "external",
+          "definition": "WHOIS identity compared with the URL"
+        },
+        "WebsiteForwarding": {
+          "needs": "page",
+          "definition": "number of HTTP redirects (requires fetching the page)"
+        },
+        "StatusBarCust": {
+          "needs": "page",
+          "definition": "onMouseOver changes the status bar"
+        },
+        "DisableRightClick": {
+          "needs": "page",
+          "definition": "JavaScript disables right click"
+        },
+        "AgeofDomain": {
+          "needs": "external",
+          "definition": "WHOIS domain age >= 6 months"
+        },
+        "DNSRecording": {
+          "needs": "external",
+          "definition": "DNS/WHOIS record exists"
+        },
+        "WebsiteTraffic": {
+          "needs": "external",
+          "definition": "Alexa rank (service retired in 2022)"
+        },
+        "PageRank": {
+          "needs": "external",
+          "definition": "Google PageRank (no longer published)"
+        },
+        "GoogleIndex": {
+          "needs": "external",
+          "definition": "page is in Google's index"
+        },
+        "StatsReport": {
+          "needs": "external",
+          "definition": "host/IP on PhishTank or StopBadware top lists"
+        }
+      },
+      "summary": {
+        "url": 4,
+        "partial": 2,
+        "page": 8,
+        "external": 7
+      },
+      "by_requirement": {
+        "url": [
+          "UsingIP",
+          "PrefixSuffix-",
+          "SubDomains",
+          "HTTPSDomainURL"
+        ],
+        "partial": [
+          "HTTPS",
+          "NonStdPort"
+        ],
+        "page": [
+          "RequestURL",
+          "AnchorURL",
+          "LinksInScriptTags",
+          "ServerFormHandler",
+          "InfoEmail",
+          "WebsiteForwarding",
+          "StatusBarCust",
+          "DisableRightClick"
+        ],
+        "external": [
+          "AbnormalURL",
+          "AgeofDomain",
+          "DNSRecording",
+          "WebsiteTraffic",
+          "PageRank",
+          "GoogleIndex",
+          "StatsReport"
+        ]
+      }
+    },
+    "conclusion": "Not reproducible from a URL: only 4 of 21 features are pure URL-string features, 2 are only partly in the URL, and 15 need the page HTML, HTTP redirects, WHOIS/DNS or third-party ranking services (two of which no longer exist). The file has no URL column, so even the URL features' -1/0/1 bucket thresholds cannot be checked. The model was also fitted on StandardScaler output (scaler fitted on all rows before the split and not saved), so raw -1/0/1 values cannot be fed to it correctly."
+  }
+}

@@ -1,0 +1,776 @@
+{
+  "model": "hist_gradient_boosting__balanced",
+  "threshold": 0.4990604516298321,
+  "hosting_platform_parents": 210,
+  "platform_definition": "parent domain (last two labels) of >= 20 distinct training hosts; a host counts as on-platform if it is a subdomain of one",
+  "validation": {
+    "counts": {
+      "TN": 12812,
+      "TP": 6985,
+      "FN": 2806,
+      "FP": 673
+    },
+    "patterns": {
+      "TP": {
+        "n": 6985,
+        "share_on_hosting_platform": 0.5889763779527559,
+        "share_with_path_or_query": 0.2684323550465283,
+        "share_http_scheme": 0.42705798138869006,
+        "share_php_or_wordpress_path": 0.05583392984967788,
+        "share_all_summary_features_within_legit_p5_p95": 0.15504652827487472,
+        "median_p_phishing": 0.9960356901003463,
+        "feature_medians": {
+          "DomainLength": 28.0,
+          "NoOfSubDomain": 2.0,
+          "TLDLegitimateProb": 0.18070266448103076,
+          "CharContinuationRate": 0.6333333333333333,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 2.0,
+          "LetterRatioInURL": 0.541
+        }
+      },
+      "FN": {
+        "n": 2806,
+        "share_on_hosting_platform": 0.06058446186742694,
+        "share_with_path_or_query": 0.23627940128296507,
+        "share_http_scheme": 0.7583749109052031,
+        "share_php_or_wordpress_path": 0.08945117605131861,
+        "share_all_summary_features_within_legit_p5_p95": 0.8353528153955809,
+        "median_p_phishing": 0.25452228886706885,
+        "feature_medians": {
+          "DomainLength": 19.0,
+          "NoOfSubDomain": 1.0,
+          "TLDLegitimateProb": 0.356020609194583,
+          "CharContinuationRate": 1.0,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 1.0,
+          "LetterRatioInURL": 0.5
+        }
+      },
+      "FP": {
+        "n": 673,
+        "share_on_hosting_platform": 0.05646359583952452,
+        "share_with_path_or_query": 0.0,
+        "share_http_scheme": 0.0,
+        "share_php_or_wordpress_path": 0.0,
+        "share_all_summary_features_within_legit_p5_p95": 0.30460624071322434,
+        "median_p_phishing": 0.6174588597239844,
+        "feature_medians": {
+          "DomainLength": 18.0,
+          "NoOfSubDomain": 1.0,
+          "TLDLegitimateProb": 0.1922812230312036,
+          "CharContinuationRate": 1.0,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 1.0,
+          "LetterRatioInURL": 0.462
+        }
+      },
+      "TN": {
+        "n": 12812,
+        "share_on_hosting_platform": 0.1156728067436778,
+        "share_with_path_or_query": 0.0,
+        "share_http_scheme": 0.0,
+        "share_php_or_wordpress_path": 0.0003902591320636903,
+        "share_all_summary_features_within_legit_p5_p95": 0.8288323446768654,
+        "median_p_phishing": 0.24057837458161221,
+        "feature_medians": {
+          "DomainLength": 19.0,
+          "NoOfSubDomain": 1.0,
+          "TLDLegitimateProb": 0.28919433741804557,
+          "CharContinuationRate": 1.0,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 1.0,
+          "LetterRatioInURL": 0.5
+        }
+      }
+    },
+    "fn_top_parent_domains": [
+      [
+        "com.br",
+        41
+      ],
+      [
+        "attemplate.com",
+        34
+      ],
+      [
+        "steacormunity.ru",
+        28
+      ],
+      [
+        "co.uk",
+        25
+      ],
+      [
+        "com.au",
+        21
+      ],
+      [
+        "co.za",
+        12
+      ],
+      [
+        "google.com",
+        10
+      ],
+      [
+        "com.ar",
+        10
+      ],
+      [
+        "tullyscanweb.com",
+        8
+      ],
+      [
+        "co.in",
+        8
+      ],
+      [
+        "mutfakci.az",
+        7
+      ],
+      [
+        "arweave.net",
+        7
+      ],
+      [
+        "hayatinoxmed.com",
+        6
+      ],
+      [
+        "com.cn",
+        6
+      ],
+      [
+        "techstrategy.app",
+        6
+      ]
+    ],
+    "tp_top_parent_domains": [
+      [
+        "firebaseapp.com",
+        566
+      ],
+      [
+        "web.app",
+        520
+      ],
+      [
+        "repl.co",
+        390
+      ],
+      [
+        "fleek.co",
+        372
+      ],
+      [
+        "weeblysite.com",
+        311
+      ],
+      [
+        "workers.dev",
+        129
+      ],
+      [
+        "square.site",
+        125
+      ],
+      [
+        "xsph.ru",
+        104
+      ],
+      [
+        "duckdns.org",
+        101
+      ],
+      [
+        "pantheonsite.io",
+        93
+      ],
+      [
+        "dweb.link",
+        76
+      ],
+      [
+        "godaddysites.com",
+        76
+      ],
+      [
+        "glitch.me",
+        60
+      ],
+      [
+        "weebly.com",
+        57
+      ],
+      [
+        "wixsite.com",
+        52
+      ]
+    ]
+  },
+  "test": {
+    "counts": {
+      "TN": 12790,
+      "TP": 7400,
+      "FN": 2650,
+      "FP": 696
+    },
+    "patterns": {
+      "TP": {
+        "n": 7400,
+        "share_on_hosting_platform": 0.5386486486486487,
+        "share_with_path_or_query": 0.2975675675675676,
+        "share_http_scheme": 0.4193243243243243,
+        "share_php_or_wordpress_path": 0.049189189189189186,
+        "share_all_summary_features_within_legit_p5_p95": 0.10121621621621621,
+        "median_p_phishing": 0.9971755833126755,
+        "feature_medians": {
+          "DomainLength": 28.0,
+          "NoOfSubDomain": 2.0,
+          "TLDLegitimateProb": 0.1706784479459459,
+          "CharContinuationRate": 0.6111111111111112,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 2.0,
+          "LetterRatioInURL": 0.533
+        }
+      },
+      "FN": {
+        "n": 2650,
+        "share_on_hosting_platform": 0.0709433962264151,
+        "share_with_path_or_query": 0.23773584905660378,
+        "share_http_scheme": 0.76,
+        "share_php_or_wordpress_path": 0.09245283018867924,
+        "share_all_summary_features_within_legit_p5_p95": 0.8309433962264151,
+        "median_p_phishing": 0.25452228886706885,
+        "feature_medians": {
+          "DomainLength": 19.0,
+          "NoOfSubDomain": 1.0,
+          "TLDLegitimateProb": 0.34983518599999996,
+          "CharContinuationRate": 1.0,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 1.0,
+          "LetterRatioInURL": 0.5
+        }
+      },
+      "FP": {
+        "n": 696,
+        "share_on_hosting_platform": 0.040229885057471264,
+        "share_with_path_or_query": 0.0,
+        "share_http_scheme": 0.0,
+        "share_php_or_wordpress_path": 0.0014367816091954023,
+        "share_all_summary_features_within_legit_p5_p95": 0.3218390804597701,
+        "median_p_phishing": 0.6014543096831018,
+        "feature_medians": {
+          "DomainLength": 17.0,
+          "NoOfSubDomain": 1.0,
+          "TLDLegitimateProb": 0.1883911760057471,
+          "CharContinuationRate": 1.0,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 1.0,
+          "LetterRatioInURL": 0.458
+        }
+      },
+      "TN": {
+        "n": 12790,
+        "share_on_hosting_platform": 0.12103205629397967,
+        "share_with_path_or_query": 0.0,
+        "share_http_scheme": 0.0,
+        "share_php_or_wordpress_path": 0.0003127443315089914,
+        "share_all_summary_features_within_legit_p5_p95": 0.8315871774824082,
+        "median_p_phishing": 0.2393694591697774,
+        "feature_medians": {
+          "DomainLength": 19.0,
+          "NoOfSubDomain": 1.0,
+          "TLDLegitimateProb": 0.28448108767787333,
+          "CharContinuationRate": 1.0,
+          "NoOfDegitsInURL": 0.0,
+          "NoOfOtherSpecialCharsInURL": 1.0,
+          "LetterRatioInURL": 0.5
+        }
+      }
+    },
+    "fn_top_parent_domains": [
+      [
+        "com.br",
+        39
+      ],
+      [
+        "com.au",
+        39
+      ],
+      [
+        "co.uk",
+        35
+      ],
+      [
+        "attitude.mx",
+        14
+      ],
+      [
+        "tinu.be",
+        10
+      ],
+      [
+        "co.za",
+        9
+      ],
+      [
+        "com.ar",
+        9
+      ],
+      [
+        "fladestateins.com",
+        7
+      ],
+      [
+        "rootsandfoundations.com",
+        7
+      ],
+      [
+        "acyes.org",
+        6
+      ],
+      [
+        "drivesafeamerica.us",
+        6
+      ],
+      [
+        "thaipaiboon.com",
+        6
+      ],
+      [
+        "co.in",
+        6
+      ],
+      [
+        "acessodasuafaturaluiza.com",
+        6
+      ],
+      [
+        "thelanguagegallerycanada.com",
+        6
+      ]
+    ],
+    "tp_top_parent_domains": [
+      [
+        "web.app",
+        618
+      ],
+      [
+        "firebaseapp.com",
+        560
+      ],
+      [
+        "repl.co",
+        377
+      ],
+      [
+        "weeblysite.com",
+        330
+      ],
+      [
+        "pinata.cloud",
+        275
+      ],
+      [
+        "go.id",
+        170
+      ],
+      [
+        "bit.ly",
+        150
+      ],
+      [
+        "workers.dev",
+        125
+      ],
+      [
+        "square.site",
+        122
+      ],
+      [
+        "infura-ipfs.io",
+        112
+      ],
+      [
+        "dweb.link",
+        97
+      ],
+      [
+        "xsph.ru",
+        79
+      ],
+      [
+        "pantheonsite.io",
+        78
+      ],
+      [
+        "godaddysites.com",
+        73
+      ],
+      [
+        "webwave.dev",
+        58
+      ]
+    ],
+    "false_negative_examples": [
+      {
+        "url_defanged": "hxxp://www[.]inein[.]mx",
+        "p_phishing": 0.16
+      },
+      {
+        "url_defanged": "hxxp://www[.]globaltopgarlic[.]com",
+        "p_phishing": 0.2368
+      },
+      {
+        "url_defanged": "hxxp://www[.]domainithere[.]com",
+        "p_phishing": 0.2426
+      },
+      {
+        "url_defanged": "hxxp://pancakeswaaps[.]com",
+        "p_phishing": 0.2426
+      },
+      {
+        "url_defanged": "hxxp://www[.]woodstocktimbers[.]com",
+        "p_phishing": 0.2578
+      },
+      {
+        "url_defanged": "hxxp://www[.]ftjgoda[.]ru",
+        "p_phishing": 0.4957
+      },
+      {
+        "url_defanged": "hxxp://www[.]librarycollection[.]org",
+        "p_phishing": 0.0619
+      },
+      {
+        "url_defanged": "hxxp://www[.]brydenstt[.]com",
+        "p_phishing": 0.2523
+      },
+      {
+        "url_defanged": "hxxp://www[.]goodnesspets[.]com",
+        "p_phishing": 0.2426
+      },
+      {
+        "url_defanged": "hxxp://www[.]doncartel[.]nl",
+        "p_phishing": 0.1338
+      },
+      {
+        "url_defanged": "hxxp://www[.]tytalrecoverysolutions[.]com",
+        "p_phishing": 0.2851
+      },
+      {
+        "url_defanged": "hxxp://www[.]walkerswebshop[.]com",
+        "p_phishing": 0.2406
+      },
+      {
+        "url_defanged": "hxxp://www[.]busanprint[.]net",
+        "p_phishing": 0.3265
+      },
+      {
+        "url_defanged": "hxxp://www[.]ckvyk[.]com",
+        "p_phishing": 0.295
+      },
+      {
+        "url_defanged": "hxxp://www[.]oteam[.]io",
+        "p_phishing": 0.1187
+      },
+      {
+        "url_defanged": "hxxp://www[.]dogstudios[.]it",
+        "p_phishing": 0.0981
+      },
+      {
+        "url_defanged": "hxxp://www[.]vacanzaimmobiliare[.]it",
+        "p_phishing": 0.1286
+      },
+      {
+        "url_defanged": "hxxps://web-hft[.]com/",
+        "p_phishing": 0.4678
+      },
+      {
+        "url_defanged": "hxxps://www[.]blogschain[.]com/fold/prohqcker[.]php",
+        "p_phishing": 0.2545
+      },
+      {
+        "url_defanged": "hxxps://ganzeweltreisen[.]de/wp-content/uploads/2023/fr/ca/bccdbc8c353ad64/rgn[.]php?particulier",
+        "p_phishing": 0.1444
+      },
+      {
+        "url_defanged": "hxxps://therecipemtf[.]com/ibg/client/ispc[.]php",
+        "p_phishing": 0.2426
+      },
+      {
+        "url_defanged": "hxxp://www[.]cestec[.]org",
+        "p_phishing": 0.0824
+      },
+      {
+        "url_defanged": "hxxp://www[.]veranev[.]com",
+        "p_phishing": 0.2988
+      },
+      {
+        "url_defanged": "hxxp://www[.]poulsen[.]work",
+        "p_phishing": 0.4981
+      },
+      {
+        "url_defanged": "hxxp://hgxc-borc[.]net/",
+        "p_phishing": 0.4782
+      }
+    ],
+    "false_positive_examples": [
+      {
+        "url_defanged": "hxxps://www[.]vr-balkan[.]net",
+        "p_phishing": 0.5297
+      },
+      {
+        "url_defanged": "hxxps://www[.]ya-roditel[.]ru",
+        "p_phishing": 0.532
+      },
+      {
+        "url_defanged": "hxxps://www[.]best-infographics[.]com",
+        "p_phishing": 0.5853
+      },
+      {
+        "url_defanged": "hxxps://www[.]xfiles[.]news",
+        "p_phishing": 0.7385
+      },
+      {
+        "url_defanged": "hxxps://www[.]town[.]north-haven[.]ct[.]us",
+        "p_phishing": 0.5374
+      },
+      {
+        "url_defanged": "hxxps://www[.]changeset[.]nyc",
+        "p_phishing": 0.6383
+      },
+      {
+        "url_defanged": "hxxps://www[.]2009gtr[.]com",
+        "p_phishing": 0.8833
+      },
+      {
+        "url_defanged": "hxxps://www[.]fotech[.]cl",
+        "p_phishing": 0.5787
+      },
+      {
+        "url_defanged": "hxxps://www[.]meetbol[.]chikkahub[.]com",
+        "p_phishing": 0.9853
+      },
+      {
+        "url_defanged": "hxxps://www[.]byte-productions[.]com",
+        "p_phishing": 0.5163
+      },
+      {
+        "url_defanged": "hxxps://www[.]minsal[.]cl",
+        "p_phishing": 0.5787
+      },
+      {
+        "url_defanged": "hxxps://www[.]plusbit[.]tech",
+        "p_phishing": 0.6755
+      },
+      {
+        "url_defanged": "hxxps://www[.]the1975[.]com",
+        "p_phishing": 0.8833
+      },
+      {
+        "url_defanged": "hxxps://www[.]12news[.]com",
+        "p_phishing": 0.6701
+      },
+      {
+        "url_defanged": "hxxps://www[.]watching-grass-grow[.]com",
+        "p_phishing": 0.5189
+      }
+    ]
+  },
+  "dataset_facts": {
+    "legitimate_train_rows_with_path_or_query": 0,
+    "legitimate_train_rows_http": 0,
+    "legitimate_train_rows": 107879
+  },
+  "feature_sufficiency": {
+    "degenerate_features": {
+      "NoOfEqualsInURL": "constant (0) in the host view",
+      "NoOfQMarkInURL": "constant (0) in the host view",
+      "NoOfAmpersandInURL": "constant (0) in the host view",
+      "IsHTTPS": "constant (1) in the host view",
+      "URLLength": "always DomainLength + 8 in the host view (redundant)"
+    },
+    "highly_correlated_pairs_train": [
+      {
+        "a": "URLLength",
+        "b": "DomainLength",
+        "r": 1.0
+      },
+      {
+        "a": "URLLength",
+        "b": "NoOfLettersInURL",
+        "r": 0.9421
+      },
+      {
+        "a": "DomainLength",
+        "b": "NoOfLettersInURL",
+        "r": 0.9421
+      },
+      {
+        "a": "NoOfDegitsInURL",
+        "b": "DegitRatioInURL",
+        "r": 0.9305
+      }
+    ],
+    "label_ambiguity_train": {
+      "rows": 188550,
+      "rows_in_mixed_label_vectors": 124610,
+      "share": 0.6608857067090957,
+      "phishing_rows_in_mixed_label_vectors": 31370,
+      "distinct_feature_vectors": 23882,
+      "minimum_possible_training_error": 0.12494298594537258,
+      "max_training_recall_if_ties_go_to_legitimate": 0.7332250746860706
+    },
+    "extended_feature_experiment_validation": {
+      "schema_17": {
+        "n_features": 17,
+        "threshold": 0.4990604516298321,
+        "precision": 0.9121180464873335,
+        "recall": 0.71341027474211,
+        "f1": 0.8006189466445068,
+        "false_positive_rate": 0.04990730441230998,
+        "roc_auc": 0.8937592835232253
+      },
+      "schema_17_plus_diagnostic_host_features": {
+        "n_features": 23,
+        "threshold": 0.5074491012847446,
+        "precision": 0.9126150654738753,
+        "recall": 0.7189255438668165,
+        "f1": 0.8042733089579525,
+        "false_positive_rate": 0.049981460882462,
+        "roc_auc": 0.8980220725131518
+      }
+    }
+  },
+  "feature_importance": {
+    "permutation_validation_roc_auc_drop": {
+      "TLDLegitimateProb": {
+        "mean": 0.11986159226158186,
+        "std": 0.002189600994222679
+      },
+      "NoOfSubDomain": {
+        "mean": 0.056653458468495066,
+        "std": 0.001708270456645102
+      },
+      "NoOfDegitsInURL": {
+        "mean": 0.04382531353186682,
+        "std": 0.0013230050383584136
+      },
+      "URLLength": {
+        "mean": 0.023022900534406022,
+        "std": 0.0010828093299445007
+      },
+      "TLDLength": {
+        "mean": 0.018823494081550984,
+        "std": 0.0007585022379564978
+      },
+      "SpacialCharRatioInURL": {
+        "mean": 0.011991683659753217,
+        "std": 0.0009325282414448099
+      },
+      "CharContinuationRate": {
+        "mean": 0.010341507169853636,
+        "std": 0.0008334624012791935
+      },
+      "NoOfOtherSpecialCharsInURL": {
+        "mean": 0.004657949589126842,
+        "std": 0.0004980275085158595
+      },
+      "LetterRatioInURL": {
+        "mean": 0.004330117929691635,
+        "std": 0.0005017155556564657
+      },
+      "NoOfLettersInURL": {
+        "mean": 0.003453222025160818,
+        "std": 0.0007420762285500893
+      },
+      "DegitRatioInURL": {
+        "mean": 0.0028781238678139308,
+        "std": 0.0004855610012700107
+      },
+      "DomainLength": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "IsDomainIP": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "NoOfEqualsInURL": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "NoOfQMarkInURL": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "NoOfAmpersandInURL": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "IsHTTPS": {
+        "mean": 0.0,
+        "std": 0.0
+      }
+    },
+    "logistic_regression_standardised_coefficients": {
+      "NoOfDegitsInURL": 4.429185677403911,
+      "NoOfOtherSpecialCharsInURL": 2.9313617857951737,
+      "DegitRatioInURL": -2.64134070069405,
+      "SpacialCharRatioInURL": -2.224075107144889,
+      "LetterRatioInURL": -2.0399781260988816,
+      "URLLength": 1.153508969892092,
+      "DomainLength": 1.153508969892092,
+      "CharContinuationRate": -0.7015533629758272,
+      "NoOfLettersInURL": -0.4830425709596552,
+      "TLDLength": 0.3152516003224194,
+      "NoOfSubDomain": 0.24650562433022133,
+      "IsDomainIP": 0.11033052035534985,
+      "TLDLegitimateProb": -0.052062613861085225,
+      "NoOfEqualsInURL": 0.0,
+      "NoOfQMarkInURL": 0.0,
+      "NoOfAmpersandInURL": 0.0,
+      "IsHTTPS": 0.0
+    },
+    "random_forest_impurity_importance": {
+      "TLDLegitimateProb": 0.2749578848213918,
+      "CharContinuationRate": 0.1353666344240244,
+      "NoOfSubDomain": 0.1100326618616272,
+      "NoOfDegitsInURL": 0.07479669559429704,
+      "NoOfOtherSpecialCharsInURL": 0.07280457327313303,
+      "DegitRatioInURL": 0.0656105404065417,
+      "TLDLength": 0.06463828964330968,
+      "URLLength": 0.06289919012444577,
+      "DomainLength": 0.057596177263053654,
+      "SpacialCharRatioInURL": 0.03038949740961907,
+      "LetterRatioInURL": 0.026822278824804136,
+      "NoOfLettersInURL": 0.024019462810527963,
+      "IsDomainIP": 6.611354322469268e-05,
+      "NoOfEqualsInURL": 0.0,
+      "NoOfQMarkInURL": 0.0,
+      "NoOfAmpersandInURL": 0.0,
+      "IsHTTPS": 0.0
+    },
+    "single_feature_validation_roc_auc": {
+      "URLLength": 0.7049786136481608,
+      "DomainLength": 0.7049786136481608,
+      "IsDomainIP": 0.5030640384026146,
+      "CharContinuationRate": 0.7467052081874166,
+      "TLDLegitimateProb": 0.6099834142022099,
+      "TLDLength": 0.512717751317705,
+      "NoOfSubDomain": 0.7228641529736415,
+      "NoOfLettersInURL": 0.6496584814692328,
+      "LetterRatioInURL": 0.557024413126445,
+      "NoOfDegitsInURL": 0.6690930018400515,
+      "DegitRatioInURL": 0.6677355052067635,
+      "NoOfEqualsInURL": 0.5,
+      "NoOfQMarkInURL": 0.5,
+      "NoOfAmpersandInURL": 0.5,
+      "NoOfOtherSpecialCharsInURL": 0.7451766578517338,
+      "SpacialCharRatioInURL": 0.7091545446665111,
+      "IsHTTPS": 0.5
+    }
+  }
+}

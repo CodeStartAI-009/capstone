@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Phishing URL Scanner</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="icons/icon32.png" alt="" width="20" height="20">
+    <h1>Phishing URL Scanner</h1>
+  </header>
+
+  <p class="label">Current page</p>
+  <div id="url" class="url">Reading current tab…</div>
+
+  <button id="scan" type="button" class="primary">Scan current page</button>
+
+  <div id="loading" class="loading" role="status" hidden><span class="spinner" aria-hidden="true"></span> Scanning…</div>
+  <div id="error" class="error" role="alert" hidden></div>
+
+  <section id="result" hidden aria-live="polite">
+    <div id="verdict" class="verdict"></div>
+    <dl class="stats">
+      <dt>Prediction</dt><dd id="prediction"></dd>
+      <dt>Risk level</dt><dd id="risk"></dd>
+      <dt>Model confidence</dt><dd id="confidence"></dd>
+    </dl>
+    <p class="label">Why this result?</p>
+    <ul id="reasons" class="reasons"></ul>
+    <p id="disclaimer" class="disclaimer"></p>
+  </section>
+
+  <footer>
+    <button id="details" type="button" class="secondary" hidden>View details</button>
+    <button id="dashboard" type="button" class="secondary">Open dashboard</button>
+  </footer>
+  <p class="note">Only the URL is sent, to the project API at <span id="api-base"></span>. The page is not read,
+    modified or blocked.</p>
+
+  <script src="config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

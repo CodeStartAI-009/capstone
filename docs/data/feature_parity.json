@@ -1,0 +1,51 @@
+{
+  "rows": 235795,
+  "oracle": {
+    "URLLength": 99.99915180559384,
+    "DomainLength": 100.0,
+    "IsDomainIP": 99.99957590279692,
+    "CharContinuationRate": 99.9978795139846,
+    "TLDLegitimateProb": 99.99024576432919,
+    "TLDLength": 100.0,
+    "NoOfSubDomain": 100.0,
+    "NoOfLettersInURL": 99.99915180559384,
+    "LetterRatioInURL": 99.99915180559384,
+    "NoOfDegitsInURL": 99.99957590279692,
+    "DegitRatioInURL": 99.99915180559384,
+    "NoOfEqualsInURL": 100.0,
+    "NoOfQMarkInURL": 100.0,
+    "NoOfAmpersandInURL": 100.0,
+    "NoOfOtherSpecialCharsInURL": 99.99915180559384,
+    "SpacialCharRatioInURL": 99.99915180559384,
+    "IsHTTPS": 100.0
+  },
+  "full_url": {
+    "URLLength": 20.629784346572233,
+    "DomainLength": 100.0,
+    "IsDomainIP": 99.99957590279692,
+    "CharContinuationRate": 99.9978795139846,
+    "TLDLegitimateProb": 99.99024576432919,
+    "TLDLength": 100.0,
+    "NoOfSubDomain": 100.0,
+    "NoOfLettersInURL": 26.94968086685468,
+    "LetterRatioInURL": 20.738777327763525,
+    "NoOfDegitsInURL": 99.4864182870714,
+    "DegitRatioInURL": 92.96337920651413,
+    "NoOfEqualsInURL": 99.89439979643335,
+    "NoOfQMarkInURL": 99.99491083356305,
+    "NoOfAmpersandInURL": 100.0,
+    "NoOfOtherSpecialCharsInURL": 94.30310227104052,
+    "SpacialCharRatioInURL": 49.161347780911385,
+    "IsHTTPS": 100.0
+  },
+  "normalize": {
+    "rejected": 8,
+    "changed": 83
+  },
+  "offset_counts": {
+    "-1": 187149,
+    "0": 48644,
+    "-4": 1,
+    "-35": 1
+  }
+}

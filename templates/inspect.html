@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}URL scanner | Phishing URL Detector{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <p class="eyebrow">URL scanner</p>
+    <h1>Inspect a URL</h1>
+    <p class="lead">Full analysis: prediction, model confidence, the evidence behind it and the exact feature values the
+      model received.</p>
+  </div>
+</section>
+
+<section class="container section-tight" aria-label="URL scanner">
+  {% set full = true %}
+  {% include "_scanner.html" %}
+</section>
+
+<section id="model" class="container section" aria-labelledby="model-title">
+  <h2 id="model-title">About the model</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Held-out test performance</h3>
+      <p class="hint" id="eval-caption">Loading…</p>
+      <div class="table-wrap">
+        <table class="data-table compact">
+          <tbody id="eval-rows"><tr><td class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <h3>Confusion matrix</h3>
+      <div class="table-wrap">
+        <table class="data-table compact confusion">
+          <thead><tr><th scope="col"></th><th scope="col">Predicted legitimate</th><th scope="col">Predicted phishing</th></tr></thead>
+          <tbody id="confusion-rows"><tr><td colspan="3" class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3>How to read a result</h3>
+      <dl class="definitions" id="threshold-list">
+        <dt>Low-risk prediction</dt><dd>The model's phishing score is below its decision threshold. This does
+          <strong>not</strong> mean the site is safe.</dd>
+        <dt>Phishing-risk prediction (moderate)</dt><dd>Above the decision threshold but below the high-confidence
+          level.</dd>
+        <dt>Phishing-risk prediction (high)</dt><dd>At or above the level where 95% of validation flags were
+          phishing.</dd>
+      </dl>
+      <p class="hint" id="threshold-values"></p>
+      <h3>Known limitations</h3>
+      <ul class="plain">
+        <li>Only the registrable domain is analysed; subdomains, paths, page content and domain age are not.</li>
+        <li>Phishing on ordinary-looking or compromised domains is often missed.</li>
+        <li>Trained on popular sites' homepages, so small legitimate sites are flagged more often.</li>
+      </ul>
+      <p class="hint">Details: <code>docs/model_evaluation.md</code> and <code>docs/ml_error_analysis.md</code>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Model input features</h3>
+    <p class="hint" id="features-caption">Loading…</p>
+    <div class="table-wrap">
+      <table class="data-table compact">
+        <thead><tr><th scope="col">#</th><th scope="col">Feature</th><th scope="col">Type</th><th scope="col">Definition</th></tr></thead>
+        <tbody id="schema-rows"><tr><td colspan="4" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/scanner.js') }}"></script>{% endblock %}
