@@ -1,0 +1,447 @@
+{
+  "model_version": "1.1.0",
+  "model_name": "gradient_boosting",
+  "model_class": "HistGradientBoostingClassifier",
+  "schema_version": "phiusiil-url-v1",
+  "model_input_view": "host",
+  "feature_count": 17,
+  "feature_names": [
+    "URLLength",
+    "DomainLength",
+    "IsDomainIP",
+    "CharContinuationRate",
+    "TLDLegitimateProb",
+    "TLDLength",
+    "NoOfSubDomain",
+    "NoOfLettersInURL",
+    "LetterRatioInURL",
+    "NoOfDegitsInURL",
+    "DegitRatioInURL",
+    "NoOfEqualsInURL",
+    "NoOfQMarkInURL",
+    "NoOfAmpersandInURL",
+    "NoOfOtherSpecialCharsInURL",
+    "SpacialCharRatioInURL",
+    "IsHTTPS"
+  ],
+  "feature_order": {
+    "URLLength": 0,
+    "DomainLength": 1,
+    "IsDomainIP": 2,
+    "CharContinuationRate": 3,
+    "TLDLegitimateProb": 4,
+    "TLDLength": 5,
+    "NoOfSubDomain": 6,
+    "NoOfLettersInURL": 7,
+    "LetterRatioInURL": 8,
+    "NoOfDegitsInURL": 9,
+    "DegitRatioInURL": 10,
+    "NoOfEqualsInURL": 11,
+    "NoOfQMarkInURL": 12,
+    "NoOfAmpersandInURL": 13,
+    "NoOfOtherSpecialCharsInURL": 14,
+    "SpacialCharRatioInURL": 15,
+    "IsHTTPS": 16
+  },
+  "feature_types": {
+    "URLLength": "int",
+    "DomainLength": "int",
+    "IsDomainIP": "int",
+    "CharContinuationRate": "float",
+    "TLDLegitimateProb": "float",
+    "TLDLength": "int",
+    "NoOfSubDomain": "int",
+    "NoOfLettersInURL": "int",
+    "LetterRatioInURL": "float",
+    "NoOfDegitsInURL": "int",
+    "DegitRatioInURL": "float",
+    "NoOfEqualsInURL": "int",
+    "NoOfQMarkInURL": "int",
+    "NoOfAmpersandInURL": "int",
+    "NoOfOtherSpecialCharsInURL": "int",
+    "SpacialCharRatioInURL": "float",
+    "IsHTTPS": "int"
+  },
+  "feature_descriptions": {
+    "URLLength": "Number of characters in the URL (n).",
+    "DomainLength": "Number of characters in the host, including any port.",
+    "IsDomainIP": "1 if the host contains a dotted IPv4 address or is an IP literal.",
+    "CharContinuationRate": "(longest letter run + longest digit run + longest symbol run) / len(core).",
+    "TLDLegitimateProb": "Per-TLD legitimacy prior from the PhiUSIIL table; 0.0 for TLDs not in the table.",
+    "TLDLength": "Length of the last dot-separated label of the host.",
+    "NoOfSubDomain": "Number of dots in the host minus one (never below zero).",
+    "NoOfLettersInURL": "ASCII letters in body.",
+    "LetterRatioInURL": "NoOfLettersInURL / n, rounded to 3 decimals.",
+    "NoOfDegitsInURL": "Digits in body.",
+    "DegitRatioInURL": "NoOfDegitsInURL / n, rounded to 3 decimals.",
+    "NoOfEqualsInURL": "'=' characters in body.",
+    "NoOfQMarkInURL": "'?' characters in body.",
+    "NoOfAmpersandInURL": "'%' characters in body (the dataset column is misnamed; it does not count '&').",
+    "NoOfOtherSpecialCharsInURL": "Non-alphanumeric characters in body other than '=', '?' and '%'.",
+    "SpacialCharRatioInURL": "(other special chars + '=' + '?' + '%') / n, rounded to 3 decimals.",
+    "IsHTTPS": "1 if 'https' occurs anywhere in the URL."
+  },
+  "excluded_features": {
+    "URLSimilarityIndex": "Label leakage: similarity to the dataset authors' legitimate-URL list, which is where the legitimate samples came from (value 100.0 for 100% of legitimate rows). Cannot be computed without that list.",
+    "URLCharProb": "Requires the authors' external character-probability corpus; the best reconstruction reached 0.22% exact parity.",
+    "HasObfuscation": "Original rule not recoverable (99.79% parity, below the 99.9% bar): the original tool ignores some %XX codes. Percent-encoding is still captured by NoOfAmpersandInURL.",
+    "NoOfObfuscatedChar": "Same reason as HasObfuscation (99.79% parity).",
+    "ObfuscationRatio": "Derived from NoOfObfuscatedChar; excluded with it."
+  },
+  "target_encoding": {
+    "model_output": "predict_proba column for class 1 = P(phishing)",
+    "dataset_label_phishing": 0,
+    "dataset_label_legitimate": 1
+  },
+  "supports_probability": true,
+  "thresholds": {
+    "flag": 0.5,
+    "high_confidence_phishing": 0.605002221055304,
+    "definition": "P(phishing) < 0.5 -> Safe; otherwise Phishing if P >= high_confidence_phishing (lowest threshold with validation precision >= 95%), else Suspicious. Binary metrics treat Suspicious and Phishing together as 'flagged'."
+  },
+  "selection_criteria": "Highest validation F1 for the phishing class (balances missed phishing against false alarms). Models within 0.001 F1 of the best are treated as tied and the tie is broken by higher validation ROC-AUC, then by faster single-URL inference. Only validation data is used; the test split is evaluated once, after selection.",
+  "candidates": {
+    "logistic_regression": {
+      "validation": {
+        "accuracy": 0.7740591166867159,
+        "precision": 0.8141114499584142,
+        "recall": 0.5998365846185272,
+        "f1": 0.6907380182299324,
+        "roc_auc": 0.7903472489755959,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12144,
+          "legitimate_flagged_FP": 1341,
+          "phishing_missed_FN": 3918,
+          "phishing_caught_TP": 5873
+        },
+        "false_positive_rate": 0.09944382647385984,
+        "n": 23276
+      },
+      "fit_seconds": 0.2,
+      "single_url_inference_ms": 0.366
+    },
+    "decision_tree": {
+      "validation": {
+        "accuracy": 0.8449046227874205,
+        "precision": 0.9068053178886403,
+        "recall": 0.7036053518537433,
+        "f1": 0.7923855532551185,
+        "roc_auc": 0.8882509445558257,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12777,
+          "legitimate_flagged_FP": 708,
+          "phishing_missed_FN": 2902,
+          "phishing_caught_TP": 6889
+        },
+        "false_positive_rate": 0.0525027808676307,
+        "n": 23276
+      },
+      "fit_seconds": 0.21,
+      "single_url_inference_ms": 0.253
+    },
+    "random_forest": {
+      "validation": {
+        "accuracy": 0.847611273414676,
+        "precision": 0.9114391143911439,
+        "recall": 0.7063629864160964,
+        "f1": 0.7959031014442718,
+        "roc_auc": 0.8880213972961858,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12813,
+          "legitimate_flagged_FP": 672,
+          "phishing_missed_FN": 2875,
+          "phishing_caught_TP": 6916
+        },
+        "false_positive_rate": 0.04983314794215795,
+        "n": 23276
+      },
+      "fit_seconds": 3.32,
+      "single_url_inference_ms": 13.164
+    },
+    "gradient_boosting": {
+      "validation": {
+        "accuracy": 0.8505757002921465,
+        "precision": 0.9126683226565564,
+        "recall": 0.7130017362884281,
+        "f1": 0.8005733944954129,
+        "roc_auc": 0.8937592835232253,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12817,
+          "legitimate_flagged_FP": 668,
+          "phishing_missed_FN": 2810,
+          "phishing_caught_TP": 6981
+        },
+        "false_positive_rate": 0.04953652206154987,
+        "n": 23276
+      },
+      "fit_seconds": 3.83,
+      "single_url_inference_ms": 11.62
+    }
+  },
+  "validation_metrics": {
+    "accuracy": 0.8505757002921465,
+    "precision": 0.9126683226565564,
+    "recall": 0.7130017362884281,
+    "f1": 0.8005733944954129,
+    "roc_auc": 0.8937592835232253,
+    "confusion_matrix": {
+      "legitimate_correct_TN": 12817,
+      "legitimate_flagged_FP": 668,
+      "phishing_missed_FN": 2810,
+      "phishing_caught_TP": 6981
+    },
+    "false_positive_rate": 0.04953652206154987,
+    "n": 23276
+  },
+  "test_metrics": {
+    "accuracy": 0.8578348062542488,
+    "precision": 0.9146462147451756,
+    "recall": 0.7357213930348259,
+    "f1": 0.8154847248262932,
+    "roc_auc": 0.8989985929760953,
+    "confusion_matrix": {
+      "legitimate_correct_TN": 12796,
+      "legitimate_flagged_FP": 690,
+      "phishing_missed_FN": 2656,
+      "phishing_caught_TP": 7394
+    },
+    "false_positive_rate": 0.05116417025063028,
+    "n": 23536,
+    "risk_levels_by_true_class": {
+      "phishing": {
+        "Safe": 2656,
+        "Suspicious": 285,
+        "Phishing": 7109
+      },
+      "legitimate": {
+        "Safe": 12796,
+        "Suspicious": 357,
+        "Phishing": 333
+      }
+    },
+    "classification_report": {
+      "legitimate": {
+        "precision": 0.8281128656484598,
+        "recall": 0.9488358297493698,
+        "f1-score": 0.8843734881470731,
+        "support": 13486.0
+      },
+      "phishing": {
+        "precision": 0.9146462147451756,
+        "recall": 0.7357213930348259,
+        "f1-score": 0.8154847248262932,
+        "support": 10050.0
+      },
+      "accuracy": 0.8578348062542488,
+      "macro avg": {
+        "precision": 0.8713795401968176,
+        "recall": 0.8422786113920978,
+        "f1-score": 0.8499291064866832,
+        "support": 23536.0
+      },
+      "weighted avg": {
+        "precision": 0.8650630763224058,
+        "recall": 0.8578348062542488,
+        "f1-score": 0.8549576115591295,
+        "support": 23536.0
+      }
+    }
+  },
+  "training_seconds": 3.83,
+  "dataset": {
+    "name": "PhiUSIIL Phishing URL Dataset",
+    "source_files": [
+      "data/train.csv",
+      "data/validation.csv",
+      "data/test.csv"
+    ],
+    "split": "host-grouped 80/10/10, stratified by group label, seed 42 (ml.dataset.load_host_grouped_split)",
+    "feature_source": "recomputed from the URL column by ml.feature_extractor",
+    "preparation": {
+      "input_rows": 235795,
+      "duplicate_url_rows_removed": 425,
+      "rejected_by_url_validation": 8,
+      "rows_used": 235362,
+      "groups": 219098
+    },
+    "splits": {
+      "train": {
+        "rows": 188550,
+        "groups": 175278,
+        "phishing": 80671,
+        "legitimate": 107879,
+        "url_sha256": "d1531e586ae259f9e47b9b451c60e21a78f6bab807407c5778b04a1a27add615"
+      },
+      "validation": {
+        "rows": 23276,
+        "groups": 21910,
+        "phishing": 9791,
+        "legitimate": 13485,
+        "url_sha256": "46ef9ef71ff4308636e9ac56a34ef5c657dc38b409d5693fd508e3beb4b814eb"
+      },
+      "test": {
+        "rows": 23536,
+        "groups": 21910,
+        "phishing": 10050,
+        "legitimate": 13486,
+        "url_sha256": "02c2fdcb77019f4ad0a1a437db00e9f0fa81a22827abe6ec8079382c169627d8"
+      }
+    },
+    "overlap_between_splits": {
+      "url": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "model_input": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    },
+    "audit": "docs/data/dataset_audit.json (python scripts/dataset_audit.py)",
+    "tld_table_entries": 647
+  },
+  "leakage_handling": {
+    "duplicate_urls": "Duplicate URLs (425 extra rows; every duplicate has a single label) are collapsed to one row before splitting, so a URL can occur in only one split.",
+    "grouping": "The split is grouped by the model input (https://www.<host>): URLs on the same host give identical feature vectors, so the whole host goes to one split. Overlap is re-checked above and training aborts if it is non-zero.",
+    "preprocessing": "The TLD prior table and the explanation percentiles are built from the training split only; model selection and the Suspicious/Phishing threshold use validation only; test is scored once.",
+    "excluded_features": "URLSimilarityIndex and 4 other stored columns are not used (see excluded_features).",
+    "original_csv_files_modified": false
+  },
+  "original_model": {
+    "path": "../projectcopy/url/Phishing_model.pkl (not modified, not used)",
+    "type": "GradientBoostingClassifier on 21 UCI-style -1/0/1 features (Kaggle phishing.csv)",
+    "trained_with_scikit_learn": "1.2.1",
+    "loads_with_current_scikit_learn": false,
+    "why_replaced": "Cannot be unpickled with scikit-learn >= 1.4 (sklearn.ensemble._gb_losses removed); 15 of its 21 inputs need page HTML, WHOIS/DNS or retired ranking services; its StandardScaler was not saved. Details: docs/data/dataset_audit.json."
+  },
+  "legitimate_reference": {
+    "URLLength": {
+      "p1": 18.0,
+      "p5": 20.0,
+      "p50": 27.0,
+      "p95": 36.0,
+      "p99": 40.0
+    },
+    "DomainLength": {
+      "p1": 10.0,
+      "p5": 12.0,
+      "p50": 19.0,
+      "p95": 28.0,
+      "p99": 32.0
+    },
+    "IsDomainIP": {
+      "p1": 0.0,
+      "p5": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "CharContinuationRate": {
+      "p1": 0.45454545454545453,
+      "p5": 0.5882352941176471,
+      "p50": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    },
+    "TLDLegitimateProb": {
+      "p1": 0.0001025,
+      "p5": 0.0014653,
+      "p50": 0.5229071,
+      "p95": 0.5229071,
+      "p99": 0.5229071
+    },
+    "TLDLength": {
+      "p1": 2.0,
+      "p5": 2.0,
+      "p50": 3.0,
+      "p95": 3.0,
+      "p99": 4.0
+    },
+    "NoOfSubDomain": {
+      "p1": 1.0,
+      "p5": 1.0,
+      "p50": 1.0,
+      "p95": 2.0,
+      "p99": 3.0
+    },
+    "NoOfLettersInURL": {
+      "p1": 5.0,
+      "p5": 7.0,
+      "p50": 14.0,
+      "p95": 22.0,
+      "p99": 27.0
+    },
+    "LetterRatioInURL": {
+      "p1": 0.278,
+      "p5": 0.35,
+      "p50": 0.5,
+      "p95": 0.629,
+      "p99": 0.667
+    },
+    "NoOfDegitsInURL": {
+      "p1": 0.0,
+      "p5": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "p99": 2.0
+    },
+    "DegitRatioInURL": {
+      "p1": 0.0,
+      "p5": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "p99": 0.083
+    },
+    "NoOfEqualsInURL": {
+      "p1": 0.0,
+      "p5": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "NoOfQMarkInURL": {
+      "p1": 0.0,
+      "p5": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "NoOfAmpersandInURL": {
+      "p1": 0.0,
+      "p5": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "NoOfOtherSpecialCharsInURL": {
+      "p1": 1.0,
+      "p5": 1.0,
+      "p50": 1.0,
+      "p95": 2.0,
+      "p99": 3.0
+    },
+    "SpacialCharRatioInURL": {
+      "p1": 0.026,
+      "p5": 0.029,
+      "p50": 0.04,
+      "p95": 0.087,
+      "p99": 0.103
+    },
+    "IsHTTPS": {
+      "p1": 1.0,
+      "p5": 1.0,
+      "p50": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    }
+  },
+  "environment": {
+    "python": "3.9.6",
+    "scikit_learn": "1.6.1",
+    "numpy": "2.0.2"
+  },
+  "random_state": 42,
+  "trained_at": "2026-09-29T12:34:16+00:00"
+}

@@ -2,7 +2,13 @@
 
     python app.py
 """
-from backend import create_app
+import os
+
+# Must run before scikit-learn loads its OpenMP runtime; see ML_THREADS in config.py.
+if os.environ.get("ML_THREADS", "1") != "0":
+    os.environ.setdefault("OMP_NUM_THREADS", os.environ.get("ML_THREADS", "1"))
+
+from backend import create_app  # noqa: E402
 
 app = create_app()
 

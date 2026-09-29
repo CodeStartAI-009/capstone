@@ -9,9 +9,11 @@ from backend.utils.errors import register_error_handlers
 from backend.utils.rate_limit import RateLimiter
 from backend.utils.security import apply_security_headers, parse_origins
 from config import Config
-from database import HistoryStore
+from database import Database, DatabaseError, ScanRepository
 from ml.predictor import ModelNotAvailableError, Predictor
 from services import threat_intelligence
+from services.history_service import HistoryService
+from services.prediction_service import PredictionService
 
 logger = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,10 +35,17 @@ def create_app(config_object=Config, predictor=None, threat_intel=None):
             # Keep serving so /api/health and the UI can report the problem.
             logger.error("Model unavailable: %s", exc)
     app.extensions["predictor"] = predictor
-    app.extensions["history"] = HistoryStore(app.config["DATABASE_PATH"])
+    app.extensions["prediction_service"] = PredictionService(
+        predictor, threat_intel or threat_intelligence.from_environment())
+    database = Database(app.config["DATABASE_PATH"])
+    try:
+        database.initialize()
+    except DatabaseError:
+        # Keep serving predictions; history endpoints return 503 and initialisation is retried per call.
+        logger.exception("Scan history database unavailable at start-up")
+    app.extensions["history"] = HistoryService(ScanRepository(database))
     app.extensions["rate_limiter"] = RateLimiter(app.config["RATE_LIMIT_PER_MINUTE"], 60)
-    app.extensions["threat_intel"] = threat_intel or threat_intelligence.from_environment()
-    allowed_origins = parse_origins(app.config.get("CORS_ORIGINS"))
+    allowed_origins = parse_origins(app.config.get("CLIENT_ORIGIN"), app.config.get("CORS_ORIGINS"))
 
     for bp in BLUEPRINTS:
         app.register_blueprint(bp)

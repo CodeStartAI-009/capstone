@@ -28,8 +28,15 @@ SCHEMA_VERSION = "phiusiil-url-v1"
 #           essentially all real-world deep links. The host view removes that
 #           shortcut and makes the model judge the host name itself.
 #   "full"  the whole normalised URL (evaluated as an experiment only).
-MODEL_INPUT_VIEWS = ("host", "full")
-DEFAULT_MODEL_INPUT_VIEW = "host"
+#   "registrable"  canonical "https://www.<registrable domain>" (Public Suffix List eTLD+1; see
+#           ml/url_utils.split_registrable). Subdomains below the registrable domain are dropped.
+#           In PhiUSIIL 99.7% of legitimate .com hosts have no subdomain while 49.9% of phishing
+#           .com hosts do, so a model on the host view learns "any subdomain => phishing" and flags
+#           legitimate service hosts such as admob.google.com. Shared-hosting platforms
+#           (firebaseapp.com, web.app, ...) are PSL suffixes, so each hosted site remains its own
+#           registrable domain. Evidence: docs/false_positive_investigation.md.
+MODEL_INPUT_VIEWS = ("host", "full", "registrable")
+DEFAULT_MODEL_INPUT_VIEW = "registrable"  # v2.0.0; v1.x used "host"
 
 # Dataset label convention (PhiUSIIL): 0 = phishing, 1 = legitimate.
 LABEL_COLUMN = "label"

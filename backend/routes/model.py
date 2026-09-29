@@ -1,19 +1,21 @@
 """GET /api/model-info and GET /api/features"""
 from flask import Blueprint, current_app, jsonify
 
-from backend.utils.errors import json_error
+from backend.utils.errors import ApiError
 from ml.feature_schema import (EXCLUDED_FEATURES, FEATURE_COUNT, FEATURE_SCHEMA, MODEL_INPUT_VIEWS,
                                SCHEMA_VERSION)
+from services.prediction_service import ModelUnavailableError
 
 bp = Blueprint("model", __name__, url_prefix="/api")
 
 
 @bp.get("/model-info")
 def model_info():
-    predictor = current_app.extensions.get("predictor")
-    if predictor is None:
-        return json_error("Model is not loaded", 503)
-    return jsonify({"success": True, **predictor.public_info()})
+    try:
+        info = current_app.extensions["prediction_service"].model_info()
+    except ModelUnavailableError:
+        raise ApiError("MODEL_UNAVAILABLE", "The phishing model is not loaded.", 503) from None
+    return jsonify({"success": True, **info})
 
 
 @bp.get("/features")

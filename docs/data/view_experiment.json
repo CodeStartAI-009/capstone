@@ -1,0 +1,778 @@
+{
+  "split": "registrable-domain grouped 80/10/10, seed 42",
+  "preparation": {
+    "input_rows": 235795,
+    "duplicate_url_rows_removed": 425,
+    "rejected_by_url_validation": 8,
+    "rows_used": 235362,
+    "groups": 196046
+  },
+  "group_overlap_between_splits": {
+    "train_validation": 0,
+    "train_test": 0,
+    "validation_test": 0
+  },
+  "sizes": {
+    "train": 187523,
+    "validation": 24784,
+    "test": 23055
+  },
+  "validation_subset_sizes": {
+    "legit_with_subdomain": 422,
+    "phishing_with_subdomain": 3663,
+    "phishing_on_shared_hosting": 2454
+  },
+  "max_validation_fpr": 0.05,
+  "views": {
+    "host": {
+      "logistic_regression__none": {
+        "threshold": 0.5423122803531543,
+        "accuracy": 0.7211910910264687,
+        "precision": 0.8820234552774374,
+        "recall": 0.4469179600886918,
+        "f1": 0.5932422886743584,
+        "roc_auc": 0.7760790531531988,
+        "false_positive_rate": 0.049892664149826044,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12835,
+          "legitimate_flagged_FP": 674,
+          "phishing_missed_FN": 6236,
+          "phishing_caught_TP": 5039
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.36255924170616116,
+          "phishing_with_subdomain_recall": 0.6926016926016926,
+          "phishing_on_shared_hosting_recall": 0.9458027709861451
+        }
+      },
+      "logistic_regression__balanced": {
+        "threshold": 0.620579507079082,
+        "accuracy": 0.7133634602969657,
+        "precision": 0.8784249682453276,
+        "recall": 0.4293569844789357,
+        "f1": 0.5767901822947694,
+        "roc_auc": 0.7774990541741164,
+        "false_positive_rate": 0.04959656525279443,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12839,
+          "legitimate_flagged_FP": 670,
+          "phishing_missed_FN": 6434,
+          "phishing_caught_TP": 4841
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.35545023696682465,
+          "phishing_with_subdomain_recall": 0.6396396396396397,
+          "phishing_on_shared_hosting_recall": 0.9441727791361043
+        }
+      },
+      "decision_tree__none": {
+        "threshold": 0.41597444089456875,
+        "accuracy": 0.8129034861200775,
+        "precision": 0.9287005941617154,
+        "recall": 0.6376940133037694,
+        "f1": 0.7561655360992796,
+        "roc_auc": 0.8366637434286643,
+        "false_positive_rate": 0.04086164779036198,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12957,
+          "legitimate_flagged_FP": 552,
+          "phishing_missed_FN": 4085,
+          "phishing_caught_TP": 7190
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.2014218009478673,
+          "phishing_with_subdomain_recall": 0.9841659841659842,
+          "phishing_on_shared_hosting_recall": 0.9873675631621842
+        }
+      },
+      "decision_tree__balanced": {
+        "threshold": 0.4911788930113063,
+        "accuracy": 0.8125,
+        "precision": 0.9269518165421283,
+        "recall": 0.6381374722838138,
+        "f1": 0.7558964122498293,
+        "roc_auc": 0.8622424403276194,
+        "false_positive_rate": 0.04197201865423051,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12942,
+          "legitimate_flagged_FP": 567,
+          "phishing_missed_FN": 4080,
+          "phishing_caught_TP": 7195
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.21800947867298578,
+          "phishing_with_subdomain_recall": 0.9858039858039858,
+          "phishing_on_shared_hosting_recall": 0.986960065199674
+        }
+      },
+      "random_forest__none": {
+        "threshold": 0.4311286278315752,
+        "accuracy": 0.7974096191091027,
+        "precision": 0.9112309310889006,
+        "recall": 0.6145454545454545,
+        "f1": 0.7340431166905027,
+        "roc_auc": 0.833268506714502,
+        "false_positive_rate": 0.049966688874083946,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12834,
+          "legitimate_flagged_FP": 675,
+          "phishing_missed_FN": 4346,
+          "phishing_caught_TP": 6929
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.23696682464454977,
+          "phishing_with_subdomain_recall": 0.8913458913458914,
+          "phishing_on_shared_hosting_recall": 0.9902200488997555
+        }
+      },
+      "random_forest__balanced": {
+        "threshold": 0.498808659249827,
+        "accuracy": 0.7975710135571337,
+        "precision": 0.9118188997104502,
+        "recall": 0.6144567627494457,
+        "f1": 0.7341705081333122,
+        "roc_auc": 0.8333664524217165,
+        "false_positive_rate": 0.04959656525279443,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12839,
+          "legitimate_flagged_FP": 670,
+          "phishing_missed_FN": 4347,
+          "phishing_caught_TP": 6928
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.22985781990521326,
+          "phishing_with_subdomain_recall": 0.8910728910728911,
+          "phishing_on_shared_hosting_recall": 0.9898125509372453
+        }
+      },
+      "gradient_boosting__none": {
+        "threshold": 0.4586632072874703,
+        "accuracy": 0.806286313750807,
+        "precision": 0.9139386189258312,
+        "recall": 0.633880266075388,
+        "f1": 0.748572924849437,
+        "roc_auc": 0.8867677407801877,
+        "false_positive_rate": 0.04981863942556814,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12836,
+          "legitimate_flagged_FP": 673,
+          "phishing_missed_FN": 4128,
+          "phishing_caught_TP": 7147
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.24644549763033174,
+          "phishing_with_subdomain_recall": 0.9858039858039858,
+          "phishing_on_shared_hosting_recall": 0.9877750611246944
+        }
+      },
+      "gradient_boosting__balanced": {
+        "threshold": 0.5352084589306271,
+        "accuracy": 0.8060845706907682,
+        "precision": 0.9137776640654983,
+        "recall": 0.6335254988913526,
+        "f1": 0.7482715273412948,
+        "roc_auc": 0.8875700112218855,
+        "false_positive_rate": 0.049892664149826044,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12835,
+          "legitimate_flagged_FP": 674,
+          "phishing_missed_FN": 4132,
+          "phishing_caught_TP": 7143
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.23933649289099526,
+          "phishing_with_subdomain_recall": 0.9855309855309855,
+          "phishing_on_shared_hosting_recall": 0.9865525672371638
+        }
+      },
+      "hist_gradient_boosting__none": {
+        "threshold": 0.42592136070396774,
+        "accuracy": 0.8118140735958683,
+        "precision": 0.9152116568270318,
+        "recall": 0.6462084257206209,
+        "f1": 0.7575379496776876,
+        "roc_auc": 0.8427766066770958,
+        "false_positive_rate": 0.049966688874083946,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12834,
+          "legitimate_flagged_FP": 675,
+          "phishing_missed_FN": 3989,
+          "phishing_caught_TP": 7286
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.1872037914691943,
+          "phishing_with_subdomain_recall": 0.9918099918099919,
+          "phishing_on_shared_hosting_recall": 0.9902200488997555
+        }
+      },
+      "hist_gradient_boosting__balanced": {
+        "threshold": 0.5015180937844725,
+        "accuracy": 0.8124596513879923,
+        "precision": 0.9154858934169279,
+        "recall": 0.6475388026607539,
+        "f1": 0.7585454545454545,
+        "roc_auc": 0.8664152714811626,
+        "false_positive_rate": 0.049892664149826044,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12835,
+          "legitimate_flagged_FP": 674,
+          "phishing_missed_FN": 3974,
+          "phishing_caught_TP": 7301
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.17772511848341233,
+          "phishing_with_subdomain_recall": 0.9912639912639912,
+          "phishing_on_shared_hosting_recall": 0.9898125509372453
+        }
+      },
+      "hist_gradient_boosting_large__none": {
+        "threshold": 0.4300426161290449,
+        "accuracy": 0.8123789541639768,
+        "precision": 0.9153605015673981,
+        "recall": 0.647450110864745,
+        "f1": 0.7584415584415585,
+        "roc_auc": 0.8407651103583896,
+        "false_positive_rate": 0.049966688874083946,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12834,
+          "legitimate_flagged_FP": 675,
+          "phishing_missed_FN": 3975,
+          "phishing_caught_TP": 7300
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.16350710900473933,
+          "phishing_with_subdomain_recall": 0.9904449904449905,
+          "phishing_on_shared_hosting_recall": 0.9898125509372453
+        }
+      },
+      "hist_gradient_boosting_large__balanced": {
+        "threshold": 0.504483567718671,
+        "accuracy": 0.8124596513879923,
+        "precision": 0.9162165557090818,
+        "recall": 0.6469179600886918,
+        "f1": 0.7583697234352256,
+        "roc_auc": 0.8420210522376559,
+        "false_positive_rate": 0.049374491080020726,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12842,
+          "legitimate_flagged_FP": 667,
+          "phishing_missed_FN": 3981,
+          "phishing_caught_TP": 7294
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.18009478672985782,
+          "phishing_with_subdomain_recall": 0.990990990990991,
+          "phishing_on_shared_hosting_recall": 0.9906275468622657
+        }
+      }
+    },
+    "registrable": {
+      "logistic_regression__none": {
+        "threshold": 0.5585941425156633,
+        "accuracy": 0.6486442866365397,
+        "precision": 0.8278416347381865,
+        "recall": 0.28745011086474503,
+        "f1": 0.42672811059907834,
+        "roc_auc": 0.7458952272764203,
+        "false_positive_rate": 0.049892664149826044,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12835,
+          "legitimate_flagged_FP": 674,
+          "phishing_missed_FN": 8034,
+          "phishing_caught_TP": 3241
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.20853080568720378,
+          "phishing_with_subdomain_recall": 0.18181818181818182,
+          "phishing_on_shared_hosting_recall": 0.8810105949470253
+        }
+      },
+      "logistic_regression__balanced": {
+        "threshold": 0.6354105063307055,
+        "accuracy": 0.6481601032924468,
+        "precision": 0.8273123238534461,
+        "recall": 0.2863858093126386,
+        "f1": 0.4254842535248386,
+        "roc_auc": 0.7502870632849021,
+        "false_positive_rate": 0.049892664149826044,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12835,
+          "legitimate_flagged_FP": 674,
+          "phishing_missed_FN": 8046,
+          "phishing_caught_TP": 3229
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.20853080568720378,
+          "phishing_with_subdomain_recall": 0.18181818181818182,
+          "phishing_on_shared_hosting_recall": 0.8748981255093724
+        }
+      },
+      "decision_tree__none": {
+        "threshold": 0.5167245873153781,
+        "accuracy": 0.7156229825693996,
+        "precision": 0.8955642897248737,
+        "recall": 0.424390243902439,
+        "f1": 0.5758815741966542,
+        "roc_auc": 0.8203427459627392,
+        "false_positive_rate": 0.041305796135909394,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12951,
+          "legitimate_flagged_FP": 558,
+          "phishing_missed_FN": 6490,
+          "phishing_caught_TP": 4785
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.016587677725118485,
+          "phishing_with_subdomain_recall": 0.32432432432432434,
+          "phishing_on_shared_hosting_recall": 0.9788101059494703
+        }
+      },
+      "decision_tree__balanced": {
+        "threshold": 0.591689999109559,
+        "accuracy": 0.7164703034215623,
+        "precision": 0.8958255683935893,
+        "recall": 0.42634146341463414,
+        "f1": 0.5777297037437654,
+        "roc_auc": 0.8002717052063016,
+        "false_positive_rate": 0.041379820860167296,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12950,
+          "legitimate_flagged_FP": 559,
+          "phishing_missed_FN": 6468,
+          "phishing_caught_TP": 4807
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.014218009478672985,
+          "phishing_with_subdomain_recall": 0.3316953316953317,
+          "phishing_on_shared_hosting_recall": 0.9775876120619397
+        }
+      },
+      "random_forest__none": {
+        "threshold": 0.5149036926944616,
+        "accuracy": 0.7177211103938025,
+        "precision": 0.9016331894124272,
+        "recall": 0.42598669623059865,
+        "f1": 0.5786049873509216,
+        "roc_auc": 0.7690103550905293,
+        "false_positive_rate": 0.03878895551114072,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12985,
+          "legitimate_flagged_FP": 524,
+          "phishing_missed_FN": 6472,
+          "phishing_caught_TP": 4803
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.018957345971563982,
+          "phishing_with_subdomain_recall": 0.3235053235053235,
+          "phishing_on_shared_hosting_recall": 0.9824775876120619
+        }
+      },
+      "random_forest__balanced": {
+        "threshold": 0.5900976301596271,
+        "accuracy": 0.7178825048418335,
+        "precision": 0.9065881906208468,
+        "recall": 0.42350332594235035,
+        "f1": 0.577318341192117,
+        "roc_auc": 0.769300410549984,
+        "false_positive_rate": 0.03642016433488785,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 13017,
+          "legitimate_flagged_FP": 492,
+          "phishing_missed_FN": 6500,
+          "phishing_caught_TP": 4775
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.018957345971563982,
+          "phishing_with_subdomain_recall": 0.3196833196833197,
+          "phishing_on_shared_hosting_recall": 0.9824775876120619
+        }
+      },
+      "gradient_boosting__none": {
+        "threshold": 0.5200345202495842,
+        "accuracy": 0.7760248547449967,
+        "precision": 0.9046945701357466,
+        "recall": 0.5674501108647451,
+        "f1": 0.6974437237695537,
+        "roc_auc": 0.8580527361327154,
+        "false_positive_rate": 0.049892664149826044,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12835,
+          "legitimate_flagged_FP": 674,
+          "phishing_missed_FN": 4877,
+          "phishing_caught_TP": 6398
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.009478672985781991,
+          "phishing_with_subdomain_recall": 0.4286104286104286,
+          "phishing_on_shared_hosting_recall": 0.9837000814995925
+        }
+      },
+      "gradient_boosting__balanced": {
+        "threshold": 0.5958882981135618,
+        "accuracy": 0.7146546158812137,
+        "precision": 0.8784440842787682,
+        "recall": 0.43263858093126384,
+        "f1": 0.5797480389826479,
+        "roc_auc": 0.8543847962736185,
+        "false_positive_rate": 0.049966688874083946,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12834,
+          "legitimate_flagged_FP": 675,
+          "phishing_missed_FN": 6397,
+          "phishing_caught_TP": 4878
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.0071090047393364926,
+          "phishing_with_subdomain_recall": 0.3346983346983347,
+          "phishing_on_shared_hosting_recall": 0.9832925835370823
+        }
+      },
+      "hist_gradient_boosting__none": {
+        "threshold": 0.5080696811417645,
+        "accuracy": 0.717801807617818,
+        "precision": 0.8963154971301611,
+        "recall": 0.4293569844789357,
+        "f1": 0.5805948668745502,
+        "roc_auc": 0.8451396071831229,
+        "false_positive_rate": 0.0414538455844252,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12949,
+          "legitimate_flagged_FP": 560,
+          "phishing_missed_FN": 6434,
+          "phishing_caught_TP": 4841
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.018957345971563982,
+          "phishing_with_subdomain_recall": 0.328965328965329,
+          "phishing_on_shared_hosting_recall": 0.9885900570497147
+        }
+      },
+      "hist_gradient_boosting__balanced": {
+        "threshold": 0.5851267164760973,
+        "accuracy": 0.716833440929632,
+        "precision": 0.8951178763690366,
+        "recall": 0.4276718403547672,
+        "f1": 0.5788020645780818,
+        "roc_auc": 0.8277075954455263,
+        "false_positive_rate": 0.04182396920571471,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12944,
+          "legitimate_flagged_FP": 565,
+          "phishing_missed_FN": 6453,
+          "phishing_caught_TP": 4822
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.011848341232227487,
+          "phishing_with_subdomain_recall": 0.3276003276003276,
+          "phishing_on_shared_hosting_recall": 0.9877750611246944
+        }
+      },
+      "hist_gradient_boosting_large__none": {
+        "threshold": 0.5125144862363944,
+        "accuracy": 0.717156229825694,
+        "precision": 0.9000187582067154,
+        "recall": 0.4255432372505543,
+        "f1": 0.5778634228592076,
+        "roc_auc": 0.8321857203188349,
+        "false_positive_rate": 0.03945517802946184,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12976,
+          "legitimate_flagged_FP": 533,
+          "phishing_missed_FN": 6477,
+          "phishing_caught_TP": 4798
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.011848341232227487,
+          "phishing_with_subdomain_recall": 0.3185913185913186,
+          "phishing_on_shared_hosting_recall": 0.9894050529747351
+        }
+      },
+      "hist_gradient_boosting_large__balanced": {
+        "threshold": 0.5875423489291303,
+        "accuracy": 0.7166316978695932,
+        "precision": 0.8979782852864095,
+        "recall": 0.4254545454545455,
+        "f1": 0.5773605343924896,
+        "roc_auc": 0.8199676556271346,
+        "false_positive_rate": 0.04034347472055667,
+        "confusion_matrix": {
+          "legitimate_correct_TN": 12964,
+          "legitimate_flagged_FP": 545,
+          "phishing_missed_FN": 6478,
+          "phishing_caught_TP": 4797
+        },
+        "subsets_at_threshold": {
+          "legit_with_subdomain_false_positive_rate": 0.011848341232227487,
+          "phishing_with_subdomain_recall": 0.3172263172263172,
+          "phishing_on_shared_hosting_recall": 0.986960065199674
+        }
+      }
+    }
+  },
+  "probe": {
+    "host": {
+      "model": "hist_gradient_boosting__balanced",
+      "threshold": 0.5015180937844725,
+      "flagged": 13,
+      "total": 20,
+      "urls": [
+        {
+          "url": "https://admob.google.com/v2/home",
+          "model_input": "https://www.admob.google.com",
+          "p_phishing": 0.9438,
+          "flagged": true
+        },
+        {
+          "url": "https://publisher.unity.com/packages",
+          "model_input": "https://www.publisher.unity.com",
+          "p_phishing": 0.9707,
+          "flagged": true
+        },
+        {
+          "url": "https://dashboard.render.com/",
+          "model_input": "https://www.dashboard.render.com",
+          "p_phishing": 0.9742,
+          "flagged": true
+        },
+        {
+          "url": "https://dash.cloudflare.com/",
+          "model_input": "https://www.dash.cloudflare.com",
+          "p_phishing": 0.9723,
+          "flagged": true
+        },
+        {
+          "url": "https://claude.ai/chat",
+          "model_input": "https://www.claude.ai",
+          "p_phishing": 0.1301,
+          "flagged": false
+        },
+        {
+          "url": "https://mail.google.com/mail/u/0/",
+          "model_input": "https://www.mail.google.com",
+          "p_phishing": 0.9483,
+          "flagged": true
+        },
+        {
+          "url": "https://docs.python.org/3/library/urllib.parse.html",
+          "model_input": "https://www.docs.python.org",
+          "p_phishing": 0.7698,
+          "flagged": true
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Phishing",
+          "model_input": "https://www.en.wikipedia.org",
+          "p_phishing": 0.7458,
+          "flagged": true
+        },
+        {
+          "url": "https://console.aws.amazon.com/",
+          "model_input": "https://www.console.aws.amazon.com",
+          "p_phishing": 0.9903,
+          "flagged": true
+        },
+        {
+          "url": "https://portal.azure.com/",
+          "model_input": "https://www.portal.azure.com",
+          "p_phishing": 0.9438,
+          "flagged": true
+        },
+        {
+          "url": "https://app.slack.com/client",
+          "model_input": "https://www.app.slack.com",
+          "p_phishing": 0.9548,
+          "flagged": true
+        },
+        {
+          "url": "https://drive.google.com/drive/my-drive",
+          "model_input": "https://www.drive.google.com",
+          "p_phishing": 0.9438,
+          "flagged": true
+        },
+        {
+          "url": "https://login.microsoftonline.com/",
+          "model_input": "https://www.login.microsoftonline.com",
+          "p_phishing": 0.9913,
+          "flagged": true
+        },
+        {
+          "url": "https://github.com/pallets/flask",
+          "model_input": "https://www.github.com",
+          "p_phishing": 0.2904,
+          "flagged": false
+        },
+        {
+          "url": "https://news.bbc.co.uk/",
+          "model_input": "https://www.news.bbc.co.uk",
+          "p_phishing": 0.0407,
+          "flagged": false
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/",
+          "model_input": "https://www.developer.mozilla.org",
+          "p_phishing": 0.845,
+          "flagged": true
+        },
+        {
+          "url": "https://www.google.com",
+          "model_input": "https://www.google.com",
+          "p_phishing": 0.2904,
+          "flagged": false
+        },
+        {
+          "url": "https://www.wikipedia.org",
+          "model_input": "https://www.wikipedia.org",
+          "p_phishing": 0.098,
+          "flagged": false
+        },
+        {
+          "url": "https://www.python.org",
+          "model_input": "https://www.python.org",
+          "p_phishing": 0.0831,
+          "flagged": false
+        },
+        {
+          "url": "https://www.bbc.co.uk",
+          "model_input": "https://www.bbc.co.uk",
+          "p_phishing": 0.0134,
+          "flagged": false
+        }
+      ]
+    },
+    "registrable": {
+      "model": "hist_gradient_boosting__balanced",
+      "threshold": 0.5851267164760973,
+      "flagged": 0,
+      "total": 20,
+      "urls": [
+        {
+          "url": "https://admob.google.com/v2/home",
+          "model_input": "https://www.google.com",
+          "p_phishing": 0.4992,
+          "flagged": false
+        },
+        {
+          "url": "https://publisher.unity.com/packages",
+          "model_input": "https://www.unity.com",
+          "p_phishing": 0.5509,
+          "flagged": false
+        },
+        {
+          "url": "https://dashboard.render.com/",
+          "model_input": "https://www.render.com",
+          "p_phishing": 0.4992,
+          "flagged": false
+        },
+        {
+          "url": "https://dash.cloudflare.com/",
+          "model_input": "https://www.cloudflare.com",
+          "p_phishing": 0.5851,
+          "flagged": false
+        },
+        {
+          "url": "https://claude.ai/chat",
+          "model_input": "https://www.claude.ai",
+          "p_phishing": 0.1722,
+          "flagged": false
+        },
+        {
+          "url": "https://mail.google.com/mail/u/0/",
+          "model_input": "https://www.google.com",
+          "p_phishing": 0.4992,
+          "flagged": false
+        },
+        {
+          "url": "https://docs.python.org/3/library/urllib.parse.html",
+          "model_input": "https://www.python.org",
+          "p_phishing": 0.1373,
+          "flagged": false
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Phishing",
+          "model_input": "https://www.wikipedia.org",
+          "p_phishing": 0.1233,
+          "flagged": false
+        },
+        {
+          "url": "https://console.aws.amazon.com/",
+          "model_input": "https://www.amazon.com",
+          "p_phishing": 0.4992,
+          "flagged": false
+        },
+        {
+          "url": "https://portal.azure.com/",
+          "model_input": "https://www.azure.com",
+          "p_phishing": 0.5509,
+          "flagged": false
+        },
+        {
+          "url": "https://app.slack.com/client",
+          "model_input": "https://www.slack.com",
+          "p_phishing": 0.5509,
+          "flagged": false
+        },
+        {
+          "url": "https://drive.google.com/drive/my-drive",
+          "model_input": "https://www.google.com",
+          "p_phishing": 0.4992,
+          "flagged": false
+        },
+        {
+          "url": "https://login.microsoftonline.com/",
+          "model_input": "https://www.microsoftonline.com",
+          "p_phishing": 0.288,
+          "flagged": false
+        },
+        {
+          "url": "https://github.com/pallets/flask",
+          "model_input": "https://www.github.com",
+          "p_phishing": 0.4992,
+          "flagged": false
+        },
+        {
+          "url": "https://news.bbc.co.uk/",
+          "model_input": "https://www.bbc.co.uk",
+          "p_phishing": 0.0288,
+          "flagged": false
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/",
+          "model_input": "https://www.mozilla.org",
+          "p_phishing": 0.1439,
+          "flagged": false
+        },
+        {
+          "url": "https://www.google.com",
+          "model_input": "https://www.google.com",
+          "p_phishing": 0.4992,
+          "flagged": false
+        },
+        {
+          "url": "https://www.wikipedia.org",
+          "model_input": "https://www.wikipedia.org",
+          "p_phishing": 0.1233,
+          "flagged": false
+        },
+        {
+          "url": "https://www.python.org",
+          "model_input": "https://www.python.org",
+          "p_phishing": 0.1373,
+          "flagged": false
+        },
+        {
+          "url": "https://www.bbc.co.uk",
+          "model_input": "https://www.bbc.co.uk",
+          "p_phishing": 0.0288,
+          "flagged": false
+        }
+      ]
+    }
+  },
+  "registrable_minus_host_recall_gain_hgb_balanced": {
+    "mean": -0.219640266075388,
+    "ci95": [
+      -0.22767184035476723,
+      -0.2114390243902439
+    ]
+  },
+  "runtime_seconds": 112.2
+}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Phishing URL Detector: check a link{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <p class="eyebrow">Machine-learning URL risk assessment</p>
+    <h1>Check a link before you trust it.</h1>
+    <p class="lead">Paste a URL to get a phishing-risk prediction from a model trained on the PhiUSIIL dataset, with
+      the evidence behind it. The server analyses the URL text only and never visits the page.</p>
+  </div>
+</section>
+
+<section id="scanner" class="container section-tight" aria-label="URL scanner">
+  {% set full = false %}
+  {% include "_scanner.html" %}
+</section>
+
+<section class="container section" aria-labelledby="recent-title">
+  <div class="section-head">
+    <h2 id="recent-title">Recent scans</h2>
+    <a href="{{ url_for('dashboard') }}">Open dashboard →</a>
+  </div>
+  <div class="card table-wrap">
+    <table class="data-table">
+      <thead><tr><th scope="col">Time</th><th scope="col">URL</th><th scope="col">Prediction</th><th scope="col">Confidence</th></tr></thead>
+      <tbody id="recent-rows"><tr><td colspan="4" class="muted">Loading…</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="how" class="section alt">
+  <div class="container">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><strong>Validate</strong><span>The URL is checked and normalised on the server. Only public http(s) URLs are
+        accepted.</span></li>
+      <li><strong>Extract</strong><span>17 lexical features of the registrable domain (for example google.com for admob.google.com) are computed
+        automatically, in the exact
+        order the model was trained on.</span></li>
+      <li><strong>Predict</strong><span>The trained model (<span data-model="model">loading…</span>) estimates the
+        probability that the URL is phishing.</span></li>
+      <li><strong>Classify</strong><span>Below the decision threshold is a low-risk prediction; above it is a
+        phishing-risk prediction (moderate or high).</span></li>
+      <li><strong>Explain and record</strong><span>Unusual feature values and URL observations are listed as evidence, and
+        the scan is saved to the local history.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-3">
+    <div>
+      <h2>What you get</h2>
+      <ul class="plain">
+        <li>Web scanner with feature-level evidence</li>
+        <li>Scan history dashboard with statistics</li>
+        <li>Chrome extension that checks the current tab on request</li>
+        <li>REST API documented in <code>docs/api.md</code></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Technology</h2>
+      <ul class="plain">
+        <li>Python, Flask, SQLite</li>
+        <li>scikit-learn gradient boosting</li>
+        <li>PhiUSIIL Phishing URL Dataset</li>
+        <li>Chrome Manifest V3 extension</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Security &amp; privacy</h2>
+      <ul class="plain">
+        <li>The server never fetches the scanned URL</li>
+        <li>Server-side input validation, size and rate limits</li>
+        <li>Tokens in query strings are redacted before a scan is saved</li>
+        <li>No IP addresses or user agents are stored</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="limitations" class="section alt">
+  <div class="container narrow">
+    <h2>Limitations</h2>
+    <p>This result is an automated machine-learning risk assessment and is not a guarantee that a website is safe.
+      On a held-out test set the model detected <strong data-metric="recall">…</strong> of phishing URLs and wrongly
+      flagged <strong data-metric="false_positive_rate">…</strong> of legitimate ones. It judges the registrable domain only, so phishing in subdomains of an attacker's domain and
+      phishing pages on ordinary-looking or compromised domains are often missed.</p>
+    <p><a href="{{ url_for('inspect') }}#model">Model details and full evaluation →</a></p>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/scanner.js') }}"></script>{% endblock %}

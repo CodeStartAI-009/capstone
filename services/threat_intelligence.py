@@ -7,7 +7,7 @@ change the model's score or risk level.
 Only a fixed provider endpoint is contacted, and the scanned URL is sent as
 data. The server never requests the scanned URL itself, so this adds no SSRF
 exposure. Enabling a provider sends scanned URLs to that third party; see
-docs/security.md.
+docs/api.md ("Security considerations").
 
 Configuration (environment variables):
     THREAT_INTEL_PROVIDER=google_safe_browsing

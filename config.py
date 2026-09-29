@@ -33,7 +33,19 @@ class Config:
     HISTORY_LIMIT = int(os.environ.get("HISTORY_LIMIT", "100"))
     RATE_LIMIT_PER_MINUTE = int(os.environ.get("RATE_LIMIT_PER_MINUTE", "60"))  # 0 disables
 
-    # Extra origins allowed to call the API from a browser (comma-separated).
-    # The bundled web UI is same-origin and the extension uses host_permissions,
-    # so neither needs an entry here.
+    # Browser origins allowed to call the API cross-origin (comma-separated, exact
+    # scheme://host[:port]; "*" is refused). The bundled web UI is same-origin and
+    # the extension uses host_permissions, so neither needs an entry.
+    # CLIENT_ORIGIN is the documented name; CORS_ORIGINS is kept for older .env files.
+    CLIENT_ORIGIN = os.environ.get("CLIENT_ORIGIN", "")
     CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "")
+
+    # Score localhost / private-network / internal host names. Off by default: the
+    # model was trained on public web URLs, so such scores are meaningless.
+    ALLOW_PRIVATE_HOSTS = _env_bool("ALLOW_PRIVATE_HOSTS", False)
+
+    # OpenMP threads used by the model per prediction; applied in app.py as OMP_NUM_THREADS before
+    # scikit-learn loads (an OpenMP thread count is per-thread state, so it cannot be set later for
+    # Flask's request threads). One row gains nothing from parallelism, and with concurrent requests
+    # a full pool per call oversubscribes the CPU. 0 = library default. See docs/testing.md.
+    ML_THREADS = int(os.environ.get("ML_THREADS", "1"))

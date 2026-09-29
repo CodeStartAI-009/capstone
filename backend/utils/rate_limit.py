@@ -1,7 +1,7 @@
 """Minimal in-memory sliding-window rate limiter (per client address).
 
 Adequate for a single-process local deployment; a multi-process deployment
-would need a shared store (e.g. Redis) instead. See docs/security.md.
+would need a shared store (e.g. Redis) instead. See docs/api.md ("Security considerations").
 """
 import threading
 import time

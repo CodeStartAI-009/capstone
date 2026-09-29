@@ -2,7 +2,7 @@
 import pandas as pd
 import pytest
 
-from ml.dataset import load_split
+from ml.dataset import load_registrable_grouped_split
 from ml.url_utils import InvalidURLError, describe_url, normalize_url
 
 
@@ -41,7 +41,7 @@ def predictor():
 
 @pytest.fixture(scope="module")
 def test_sample():
-    df = load_split("test")
+    df = load_registrable_grouped_split()[0]["test"]  # the deployed model's held-out split
     return pd.concat([df[df.label == 1].sample(150, random_state=1), df[df.label == 0].sample(150, random_state=1)])
 
 

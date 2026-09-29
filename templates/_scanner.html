@@ -1,0 +1,80 @@
+{# Shared URL scanner + result card. Set `full = true` before including for the detailed view (/inspect). #}
+<div class="card scanner-card">
+  <form id="scan-form" novalidate>
+    <label for="url-input">URL to check</label>
+    <div class="input-row">
+      <input id="url-input" name="url" type="text" inputmode="url" autocomplete="off" spellcheck="false"
+             maxlength="2048" placeholder="https://example.com" aria-describedby="url-hint url-error" required>
+      <button id="scan-button" type="submit">Scan</button>
+    </div>
+    <p id="url-hint" class="hint">Paste the full address. Without a scheme, https:// is assumed. The page itself is never
+      visited or opened.</p>
+    <p id="url-error" class="field-error" role="alert" hidden></p>
+  </form>
+</div>
+
+<div id="state-idle" class="card state-card">
+  <p class="muted">Enter a URL and select <strong>Scan</strong>. The result appears here.</p>
+</div>
+
+<div id="state-loading" class="card state-card" hidden role="status" aria-live="polite">
+  <span class="spinner" aria-hidden="true"></span> Analysing URL…
+</div>
+
+<div id="state-error" class="card state-card state-error" hidden role="alert">
+  <strong id="error-title">Scan failed</strong>
+  <p id="error-message"></p>
+</div>
+
+<article id="state-result" class="card result" hidden aria-live="polite" aria-labelledby="result-heading">
+  <p class="eyebrow" id="result-heading">Scan result <span id="result-origin" class="muted"></span></p>
+  <div class="result-head">
+    <div id="verdict" class="verdict">
+      <span class="verdict-icon" aria-hidden="true"></span>
+      <span class="verdict-text" id="verdict-text"></span>
+    </div>
+    <dl class="result-stats">
+      <div><dt>Prediction</dt><dd id="prediction"></dd></div>
+      <div><dt>Risk level</dt><dd id="risk-level"></dd></div>
+      <div><dt>Model confidence</dt><dd id="confidence"></dd></div>
+      <div><dt>Scanned</dt><dd id="scanned-at"></dd></div>
+    </dl>
+  </div>
+  <p class="result-url"><span class="muted">URL</span> <code id="result-url"></code></p>
+  <p id="verdict-summary" class="summary"></p>
+
+  <div class="meter-block">
+    <div class="meter" id="meter" role="img" aria-label="">
+      <div class="meter-band meter-safe" id="band-safe"></div>
+      <div class="meter-band meter-suspicious" id="band-suspicious"></div>
+      <div class="meter-band meter-phishing" id="band-phishing"></div>
+      <div id="meter-marker" class="meter-marker"></div>
+    </div>
+    <p class="hint" id="meter-caption"></p>
+  </div>
+
+  <h3>Why this result?</h3>
+  <ul id="explanations" class="explanations"></ul>
+  <p class="hint">Items marked <em>model feature</em> compare this URL's host with legitimate URLs in the training data.
+    <em>Observations</em> are rule-based facts about the URL that the model does not use. Neither is a
+    per-prediction attribution.</p>
+
+  <p class="notice" id="result-disclaimer">This result is an automated machine-learning risk assessment and is not a
+    guarantee that a website is safe.</p>
+  <p id="history-note" class="hint" hidden></p>
+
+  {% if full %}
+  <h3>Feature analysis</h3>
+  <p class="hint">The model analysed <code id="model-input"></code>: the site's registrable domain only (subdomains,
+    path and query are not model inputs), in the exact feature order it was
+    trained on (model version <span id="model-version"></span>).</p>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th scope="col">#</th><th scope="col">Feature</th><th scope="col">Value</th><th scope="col">Meaning</th></tr></thead>
+      <tbody id="feature-rows"></tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="result-actions"><a id="details-link" class="button-link" href="{{ url_for('inspect') }}" hidden>Full analysis →</a></p>
+  {% endif %}
+</article>

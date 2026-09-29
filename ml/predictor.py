@@ -11,10 +11,10 @@ from pathlib import Path
 
 import pandas as pd
 
-from ml.feature_extractor import extract_features, load_tld_table, validate_vector
+from ml.feature_extractor import FeatureExtractionError, extract_features, load_tld_table, validate_vector
 from ml.feature_schema import FEATURE_COUNT, FEATURE_NAMES, SCHEMA_VERSION
 from ml.model_utils import load_model
-from ml.url_utils import describe_url
+from ml.url_utils import InvalidURLError, describe_url
 from services.explanation_engine import explain
 
 logger = logging.getLogger(__name__)
@@ -82,10 +82,16 @@ class Predictor:
         return prediction, RISK_LEVELS[prediction]
 
     def predict(self, raw_url):
-        """Raises ml.url_utils.InvalidURLError for invalid input."""
+        """Raises ml.url_utils.InvalidURLError for invalid input and
+        ml.feature_extractor.FeatureExtractionError if features cannot be computed."""
         start = time.perf_counter()
-        extracted = extract_features(raw_url, tld_table=self.tld_table, view=self.view)
-        validate_vector(extracted["vector"])
+        try:
+            extracted = extract_features(raw_url, tld_table=self.tld_table, view=self.view)
+            validate_vector(extracted["vector"])
+        except (InvalidURLError, FeatureExtractionError):
+            raise
+        except Exception as exc:  # any other failure inside extraction is still an extraction failure
+            raise FeatureExtractionError("feature extraction failed") from exc
         X = pd.DataFrame([extracted["vector"]], columns=FEATURE_NAMES)
         t_features = time.perf_counter()
 
@@ -104,7 +110,7 @@ class Predictor:
 
         url_facts = describe_url(extracted["url"])
         explanations = explain(extracted["features"], url_facts, self.metadata.get("legitimate_reference", {}),
-                               scheme_assumed=extracted["scheme_assumed"])
+                               scheme_assumed=extracted["scheme_assumed"], view=self.view)
         return {
             "url": extracted["url"],
             "prediction": prediction,

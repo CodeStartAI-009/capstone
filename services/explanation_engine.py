@@ -14,13 +14,19 @@ Two kinds of item are produced, and the UI shows which is which:
 Each item: {"source", "severity" ("risk" | "caution" | "info"), "feature" | "check", "message"}.
 """
 
-# Model features where a high value (relative to legitimate URLs) is noteworthy.
+from ml.url_utils import registrable_domain
+
+# Model features where a high value (relative to legitimate URLs) is noteworthy. "Assessed domain" is the
+# model input (the registrable domain in the default view, the full host in the "host" view), with "www.".
 _HIGH_VALUE_MESSAGES = {
-    "DomainLength": "Host name is {value} characters long; 95% of legitimate training hosts are at most {p95:g}.",
-    "NoOfSubDomain": "Host has {value} subdomain level(s); 95% of legitimate training hosts have at most {p95:g}.",
-    "NoOfDegitsInURL": "Host contains {value} digit(s); 95% of legitimate training hosts contain at most {p95:g}.",
-    "NoOfOtherSpecialCharsInURL": "Host contains {value} separator/special character(s) such as '-' or '.'; "
-                                  "95% of legitimate training hosts contain at most {p95:g}.",
+    "DomainLength": "The assessed domain is {value} characters long; 95% of legitimate training domains are at most "
+                    "{p95:g}.",
+    "NoOfSubDomain": "The assessed domain has {value} dot-separated level(s) after 'www'; 95% of legitimate training "
+                     "domains have at most {p95:g}.",
+    "NoOfDegitsInURL": "The assessed domain contains {value} digit(s); 95% of legitimate training domains contain at "
+                       "most {p95:g}.",
+    "NoOfOtherSpecialCharsInURL": "The assessed domain contains {value} separator/special character(s) such as '-' "
+                                  "or '.'; 95% of legitimate training domains contain at most {p95:g}.",
     "TLDLength": "Top-level domain is {value} characters long; 95% of legitimate training URLs use at most {p95:g}.",
 }
 
@@ -33,7 +39,29 @@ def _fmt(value):
 _DOMAIN_ONLY = {"TLDLength", "NoOfSubDomain", "TLDLegitimateProb", "CharContinuationRate"}
 
 
-def explain(features, url_facts, reference, scheme_assumed=False):
+def _subdomain_items(url_facts, view):
+    """Observations about the part of the host below the registrable domain (never used by the model)."""
+    sub, registrable = url_facts.get("subdomain") or "", url_facts.get("registrable_domain") or ""
+    if not registrable or sub in ("", "www"):
+        return []
+    items = []
+    if view == "registrable":
+        items.append({"source": "observation", "severity": "info", "check": "subdomain",
+                      "message": f"The model assessed the registrable domain {registrable}; the subdomain '{sub}' is "
+                                 "not part of the model input."})
+    embedded = registrable_domain(sub) if "." in sub else ""
+    if embedded:
+        items.append({"source": "observation", "severity": "caution", "check": "embedded_domain",
+                      "message": f"The subdomain contains another domain name ({embedded}) in front of the real "
+                                 f"registrable domain {registrable}, a common way to imitate a trusted site. The "
+                                 "model does not score this pattern."})
+    elif sub.count(".") >= 2:
+        items.append({"source": "observation", "severity": "caution", "check": "deep_subdomain",
+                      "message": f"The host has {sub.count('.') + 1} subdomain levels below {registrable}."})
+    return items
+
+
+def explain(features, url_facts, reference, scheme_assumed=False, view="host"):
     items = []
     host_is_ip = features.get("IsDomainIP") == 1
 
@@ -91,6 +119,7 @@ def explain(features, url_facts, reference, scheme_assumed=False):
         items.append({"source": "observation", "severity": "info", "check": "hyphen",
                       "message": "Host name contains '-', which phishing domains often use to add "
                                  "brand names or keywords."})
+    items.extend(_subdomain_items(url_facts, view))
     if scheme_assumed:
         items.append({"source": "observation", "severity": "info", "check": "scheme",
                       "message": "No scheme was given, so https:// was assumed."})

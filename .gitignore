@@ -25,3 +25,7 @@ results/
 
 # Full raw dataset (59 MB) - never committed; see docs/dataset.md
 data/phishing_urls.csv
+
+# Packed extension artefacts. extension.pem is a PRIVATE signing key: never commit it.
+*.pem
+*.crx

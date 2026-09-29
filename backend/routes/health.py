@@ -5,4 +5,4 @@ bp = Blueprint("health", __name__, url_prefix="/api")
 
 @bp.get("/health")
 def health():
-    return jsonify({"status": "ok", "model_loaded": current_app.extensions.get("predictor") is not None})
+    return jsonify({"status": "ok", "model_loaded": current_app.extensions["prediction_service"].available})

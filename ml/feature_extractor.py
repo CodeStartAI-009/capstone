@@ -15,7 +15,7 @@ from pathlib import Path
 
 from ml.feature_schema import (DEFAULT_MODEL_INPUT_VIEW, FEATURE_COUNT, FEATURE_NAMES, FEATURE_RANGES,
                                FEATURE_TYPES)
-from ml.url_utils import has_explicit_scheme, normalize_url
+from ml.url_utils import has_explicit_scheme, normalize_url, split_registrable
 
 DEFAULT_TLD_TABLE_PATH = Path(__file__).resolve().parent.parent / "models" / "tld_legitimate_prob.json"
 UNKNOWN_TLD_PROB = 0.0  # the dataset's own value for TLDs with no legitimate presence
@@ -28,7 +28,11 @@ _DIGIT_RUN_RE = re.compile(r"[0-9]+")
 _SYMBOL_RUN_RE = re.compile(r"[^A-Za-z0-9]+")
 
 
-class FeatureValidationError(ValueError):
+class FeatureExtractionError(ValueError):
+    """Features could not be computed for a URL that passed validation."""
+
+
+class FeatureValidationError(FeatureExtractionError):
     """The extracted vector does not match the schema (a programming error)."""
 
 
@@ -47,9 +51,12 @@ def model_input(url, view=DEFAULT_MODEL_INPUT_VIEW):
     """The string the model features are computed from (see feature_schema.MODEL_INPUT_VIEWS)."""
     if view == "full":
         return url
-    if view != "host":
+    if view not in ("host", "registrable"):
         raise ValueError(f"unknown model input view: {view!r}")
     host = _host(url).rpartition("@")[2]
+    if view == "registrable":
+        hostname = host.rsplit(":", 1)[0] if not host.endswith("]") else host  # drop any port
+        host = split_registrable(hostname.lower())[1] or hostname
     if host.startswith("www."):
         host = host[4:]
     return f"https://www.{host}"
