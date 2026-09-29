@@ -1,19 +1,27 @@
-cat > .gitignore <<'EOF'
 .DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
 
 # Python virtual environment
 .venv/
+venv/
+
+# Local configuration / secrets
+.env
+
+# Runtime data (scan history database)
+instance/
 
 # DistilBERT models and checkpoints
 distilbert_model/
 distilbert_model_clean/
 
-# Generated model files
-models/*.joblib
-
-# Generated results
+# Generated results from the original experiment scripts
 results/
 
-# Large datasets
-data/*.csv
-EOF
+# NOTE: data/*.csv and models/*.joblib were committed in the initial commit
+# and remain tracked. New large generated artefacts should not be added.
+
+# Full raw dataset (59 MB) - never committed; see docs/dataset.md
+data/phishing_urls.csv
