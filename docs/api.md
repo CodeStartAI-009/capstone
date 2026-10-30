@@ -142,7 +142,7 @@ Values come directly from `models/model_metadata.json`:
   "risk_levels": {"Safe": "Low", "Suspicious": "Medium", "Phishing": "High"},
   "thresholds": {"flag": 0.4990604516298321, "high_confidence_phishing": 0.605002221055304},
   "evaluation": {
-    "split": "held-out test split (host-grouped, never used for training or tuning)",
+    "split": "held-out test split of the registrable-domain-grouped 80/10/10 split, never used for training or tuning",
     "rows": 23536, "threshold": 0.4990604516298321,
     "accuracy": 0.7872, "precision": 0.8801, "recall": 0.5675,
     "f1": 0.6900, "roc_auc": 0.8524, "false_positive_rate": 0.0554,  // rounded here; the API returns full precision

@@ -229,7 +229,7 @@
         "precision": 0.7403015075376884,
         "recall": 0.3266518847006652,
         "f1": 0.4532923076923077,
-        "roc_auc": 0.7458952272764203,
+        "roc_auc": 0.7458917213604332,
         "confusion_matrix": {
           "legitimate_correct_TN": 12217,
           "legitimate_flagged_FP": 1292,
@@ -240,12 +240,12 @@
         "n": 24784
       },
       "validation_at_fpr_cap": {
-        "threshold": 0.5585941425156633,
+        "threshold": 0.5585941425525567,
         "accuracy": 0.6486442866365397,
         "precision": 0.8278416347381865,
         "recall": 0.28745011086474503,
         "f1": 0.42672811059907834,
-        "roc_auc": 0.7458952272764203,
+        "roc_auc": 0.7458917213604332,
         "confusion_matrix": {
           "legitimate_correct_TN": 12835,
           "legitimate_flagged_FP": 674,
@@ -255,9 +255,9 @@
         "false_positive_rate": 0.049892664149826044,
         "n": 24784
       },
-      "validation_average_precision": 0.7351737975098535,
-      "fit_seconds": 0.12,
-      "single_url_inference_ms": 0.357,
+      "validation_average_precision": 0.7351498451864944,
+      "fit_seconds": 0.13,
+      "single_url_inference_ms": 0.324,
       "recall_gain_vs_incumbent": {
         "mean": -0.14043077605321508,
         "ci95": [
@@ -274,7 +274,7 @@
         "precision": 0.6706354700263049,
         "recall": 0.4296230598669623,
         "f1": 0.5237322953832847,
-        "roc_auc": 0.7502870632849021,
+        "roc_auc": 0.7502871059599094,
         "confusion_matrix": {
           "legitimate_correct_TN": 11130,
           "legitimate_flagged_FP": 2379,
@@ -285,12 +285,12 @@
         "n": 24784
       },
       "validation_at_fpr_cap": {
-        "threshold": 0.6354105063307055,
+        "threshold": 0.6354105069311549,
         "accuracy": 0.6481601032924468,
         "precision": 0.8273123238534461,
         "recall": 0.2863858093126386,
         "f1": 0.4254842535248386,
-        "roc_auc": 0.7502870632849021,
+        "roc_auc": 0.7502871059599094,
         "confusion_matrix": {
           "legitimate_correct_TN": 12835,
           "legitimate_flagged_FP": 674,
@@ -300,9 +300,9 @@
         "false_positive_rate": 0.049892664149826044,
         "n": 24784
       },
-      "validation_average_precision": 0.7388720199461412,
-      "fit_seconds": 0.15,
-      "single_url_inference_ms": 0.348,
+      "validation_average_precision": 0.7388542678537829,
+      "fit_seconds": 0.14,
+      "single_url_inference_ms": 0.321,
       "recall_gain_vs_incumbent": {
         "mean": -0.14136603104212858,
         "ci95": [
@@ -346,8 +346,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.8083403033367799,
-      "fit_seconds": 0.17,
-      "single_url_inference_ms": 0.25,
+      "fit_seconds": 0.16,
+      "single_url_inference_ms": 0.198,
       "recall_gain_vs_incumbent": {
         "mean": -0.003410909090909092,
         "ci95": [
@@ -392,7 +392,7 @@
       },
       "validation_average_precision": 0.7944743382566208,
       "fit_seconds": 0.18,
-      "single_url_inference_ms": 0.25,
+      "single_url_inference_ms": 0.194,
       "recall_gain_vs_incumbent": {
         "mean": -0.0014282926829268304,
         "ci95": [
@@ -436,8 +436,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.7879857415291737,
-      "fit_seconds": 2.1,
-      "single_url_inference_ms": 14.653,
+      "fit_seconds": 1.83,
+      "single_url_inference_ms": 12.984,
       "recall_gain_vs_incumbent": {
         "mean": -0.001722039911308204,
         "ci95": [
@@ -465,7 +465,7 @@
         "n": 24784
       },
       "validation_at_fpr_cap": {
-        "threshold": 0.5900976301596271,
+        "threshold": 0.590097630159627,
         "accuracy": 0.7178825048418335,
         "precision": 0.9065881906208468,
         "recall": 0.42350332594235035,
@@ -481,8 +481,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.7882074481806143,
-      "fit_seconds": 2.05,
-      "single_url_inference_ms": 14.838,
+      "fit_seconds": 1.88,
+      "single_url_inference_ms": 13.209,
       "recall_gain_vs_incumbent": {
         "mean": -0.004211352549889137,
         "ci95": [
@@ -526,8 +526,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.8569046945923036,
-      "fit_seconds": 14.02,
-      "single_url_inference_ms": 0.341,
+      "fit_seconds": 13.64,
+      "single_url_inference_ms": 0.278,
       "recall_gain_vs_incumbent": {
         "mean": 0.13954137472283812,
         "ci95": [
@@ -555,7 +555,7 @@
         "n": 24784
       },
       "validation_at_fpr_cap": {
-        "threshold": 0.5958882981135618,
+        "threshold": 0.5958882981135619,
         "accuracy": 0.7146546158812137,
         "precision": 0.8784440842787682,
         "recall": 0.43263858093126384,
@@ -571,8 +571,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.8526049774476037,
-      "fit_seconds": 14.15,
-      "single_url_inference_ms": 0.334,
+      "fit_seconds": 13.7,
+      "single_url_inference_ms": 0.278,
       "recall_gain_vs_incumbent": {
         "mean": 0.04234855875831485,
         "ci95": [
@@ -616,8 +616,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.8367864445970626,
-      "fit_seconds": 1.86,
-      "single_url_inference_ms": 4.655,
+      "fit_seconds": 5.75,
+      "single_url_inference_ms": 23.516,
       "recall_gain_vs_incumbent": {
         "mean": 0.001723015521064301,
         "ci95": [
@@ -645,7 +645,7 @@
         "n": 24784
       },
       "validation_at_fpr_cap": {
-        "threshold": 0.5851267164760973,
+        "threshold": 0.585126716476097,
         "accuracy": 0.716833440929632,
         "precision": 0.8951178763690366,
         "recall": 0.4276718403547672,
@@ -661,8 +661,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.8212976624808991,
-      "fit_seconds": 1.93,
-      "single_url_inference_ms": 4.384,
+      "fit_seconds": 5.76,
+      "single_url_inference_ms": 23.589,
       "recall_gain_vs_incumbent": null
     },
     "hist_gradient_boosting_large__none": {
@@ -700,8 +700,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.8245348071342637,
-      "fit_seconds": 5.39,
-      "single_url_inference_ms": 8.733,
+      "fit_seconds": 20.14,
+      "single_url_inference_ms": 46.797,
       "recall_gain_vs_incumbent": {
         "mean": -0.002178359201773836,
         "ci95": [
@@ -745,8 +745,8 @@
         "n": 24784
       },
       "validation_average_precision": 0.81534647280245,
-      "fit_seconds": 5.53,
-      "single_url_inference_ms": 9.097,
+      "fit_seconds": 20.22,
+      "single_url_inference_ms": 47.859,
       "recall_gain_vs_incumbent": {
         "mean": -0.002299246119733925,
         "ci95": [
@@ -1070,7 +1070,7 @@
         "f2": 0.6246662598214967
       },
       "fpr_le_1pct": {
-        "threshold": 0.7001744579670289,
+        "threshold": 0.700174457967029,
         "precision": 0.9689369535204786,
         "recall": 0.3734811529933481,
         "f1": 0.5391460213814736,
@@ -1102,7 +1102,7 @@
         "f2": 0.6290653885655597
       },
       "max_f1": {
-        "threshold": 0.36346056806956994,
+        "threshold": 0.3634605680695699,
         "precision": 0.7422148209825146,
         "recall": 0.7905986696230599,
         "f1": 0.7656431178870517,
@@ -1190,7 +1190,7 @@
       }
     }
   },
-  "training_seconds": 14.02,
+  "training_seconds": 13.64,
   "dataset": {
     "name": "PhiUSIIL Phishing URL Dataset",
     "source_files": [
@@ -1387,10 +1387,10 @@
     }
   },
   "environment": {
-    "python": "3.9.6",
+    "python": "3.14.8",
     "scikit_learn": "1.6.1",
-    "numpy": "2.0.2"
+    "numpy": "2.5.3"
   },
   "random_state": 42,
-  "trained_at": "2026-09-29T17:42:52+00:00"
+  "trained_at": "2026-10-29T13:01:08+00:00"
 }

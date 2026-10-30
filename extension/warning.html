@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Potential Phishing Risk</title>
+  <link rel="stylesheet" href="warning.css">
+</head>
+<body>
+  <main class="card" aria-labelledby="title">
+    <div class="badge" aria-hidden="true">!</div>
+    <h1 id="title">Potential Phishing Risk</h1>
+
+    <section id="details" hidden>
+      <p class="lead">The Phishing URL Scanner's machine-learning model gave this site a <strong>high phishing-risk
+        score</strong>. The tab was moved to this page so that you can decide what to do.</p>
+
+      <p class="label">Site</p>
+      <p id="host" class="host"></p>
+      <p class="label">Address</p>
+      <p id="url" class="url"></p>
+
+      <dl class="stats">
+        <dt>Verdict</dt><dd id="verdict"></dd>
+        <dt>Risk level</dt><dd id="risk"></dd>
+        <dt>Model phishing score</dt><dd id="score"></dd>
+        <dt>Domain the model assessed</dt><dd id="model-input"></dd>
+        <dt>Model version</dt><dd id="model-version"></dd>
+      </dl>
+      <p id="summary" class="summary"></p>
+
+      <p class="label">Why was it flagged?</p>
+      <ul id="reasons" class="reasons"></ul>
+    </section>
+
+    <section id="missing" class="missing" hidden>
+      <p>There is no active warning for this tab. It may have been cleared, for example after the browser was
+        restarted or after you already chose an option. Open the address again to have it checked again.</p>
+    </section>
+
+    <div class="limits">
+      <p><strong>This is an automated machine-learning warning and it may be wrong.</strong> Legitimate sites can be
+        flagged, and phishing sites can be missed. The model judges only the site's address (its domain name); it does
+        not open or inspect the page.</p>
+      <p id="disclaimer"></p>
+    </div>
+
+    <div class="actions">
+      <button id="back" type="button" class="primary">Go Back to Safety</button>
+      <button id="proceed" type="button" class="secondary" hidden>Continue Anyway</button>
+    </div>
+    <p id="proceed-note" class="note" hidden>Continue Anyway allows this site once, in this tab only, until you leave
+      the site. It does not mark the site as safe, does not change the model's score and is not saved permanently.</p>
+    <p id="action-error" class="action-error" role="alert" hidden></p>
+  </main>
+
+  <script src="warning.js"></script>
+</body>
+</html>

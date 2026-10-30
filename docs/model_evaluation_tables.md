@@ -40,7 +40,7 @@ Split sizes: {'train': 188636, 'validation': 23579, 'test': 23580}. URLs shared 
 
 | Model | Accuracy | Precision | Recall | F1 | ROC-AUC | TN (legit ok) | FP (legit flagged) | FN (phish missed) | TP (phish caught) |
 |---|---|---|---|---|---|---|---|---|---|
-| logistic_regression | 0.78531 | 0.84266 | 0.61290 | 0.70965 | 0.79862 | 12330 | 1155 | 3907 | 6186 |
+| logistic_regression | 0.78531 | 0.84266 | 0.61290 | 0.70965 | 0.79863 | 12330 | 1155 | 3907 | 6186 |
 | decision_tree | 0.85537 | 0.92090 | 0.72436 | 0.81089 | 0.89684 | 12857 | 628 | 2782 | 7311 |
 | random_forest | 0.85711 | 0.91702 | 0.73249 | 0.81443 | 0.89958 | 12816 | 669 | 2700 | 7393 |
 | gradient_boosting | 0.85686 | 0.92177 | 0.72734 | 0.81309 | 0.90133 | 12862 | 623 | 2752 | 7341 |
@@ -127,7 +127,7 @@ Split sizes: {'train': 188636, 'validation': 23579, 'test': 23580}. URLs shared 
 
 | Model | Accuracy | Precision | Recall | F1 | ROC-AUC | TN (legit ok) | FP (legit flagged) | FN (phish missed) | TP (phish caught) |
 |---|---|---|---|---|---|---|---|---|---|
-| logistic_regression | 0.78994 | 0.82764 | 0.64169 | 0.72290 | 0.80807 | 12143 | 1343 | 3601 | 6449 |
+| logistic_regression | 0.78994 | 0.82764 | 0.64169 | 0.72290 | 0.80808 | 12143 | 1343 | 3601 | 6449 |
 | decision_tree | 0.85682 | 0.91740 | 0.73045 | 0.81332 | 0.89377 | 12825 | 661 | 2709 | 7341 |
 | random_forest | 0.85380 | 0.91834 | 0.72179 | 0.80829 | 0.89007 | 12841 | 645 | 2796 | 7254 |
 | gradient_boosting | 0.85783 | 0.91465 | 0.73572 | 0.81548 | 0.89900 | 12796 | 690 | 2656 | 7394 |

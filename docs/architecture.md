@@ -7,7 +7,7 @@ contain no model or prediction logic; both call `POST /api/predict`.
 ```
  ┌──────────────────────┐        ┌──────────────────────────┐
  │ Web frontend         │        │ Chrome extension (MV3)   │
- │ templates/ + static/ │        │ extension/ (activeTab)   │
+ │ templates/ + static/ │        │ extension/ (tabs, SW)    │
  └──────────┬───────────┘        └────────────┬─────────────┘
             │ same origin                      │ host_permissions → API origin
             ▼                                  ▼

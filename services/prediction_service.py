@@ -125,7 +125,10 @@ class PredictionService:
             "risk_levels": {"Safe": "Low", "Suspicious": "Medium", "Phishing": "High"},
             "thresholds": {k: meta.get("thresholds", {}).get(k) for k in ("flag", "high_confidence_phishing")},
             "evaluation": {
-                "split": "held-out test split (host-grouped, never used for training or tuning)",
+                # The grouping comes from the metadata (v1.x: host-grouped, v2.0.0: registrable-domain-grouped).
+                "split": (f"held-out test split of the {dataset.get('split').split(' 80/10/10')[0]} 80/10/10 split, "
+                          "never used for training or tuning" if dataset.get("split")
+                          else "held-out test split, never used for training or tuning"),
                 "rows": test.get("n"),
                 "threshold": test.get("threshold"),
                 **{k: test.get(k) for k in ("accuracy", "precision", "recall", "f1", "roc_auc",

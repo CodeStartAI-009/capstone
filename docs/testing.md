@@ -6,6 +6,7 @@
 source .venv/bin/activate
 python -m pytest              # everything (about 70 s)
 python -m pytest tests/browser                # real-browser tests only
+node --test tests/extension/                  # simulated extension-logic tests only (Node.js 18+)
 BROWSER_ARTIFACTS=/tmp/shots python -m pytest tests/browser   # also save screenshots
 ```
 
@@ -15,15 +16,25 @@ They are **skipped automatically** if Chrome isn't installed. Each test starts
 its own Flask server on a free port with a temporary SQLite file, so the real
 `instance/` database is never touched.
 
-## Automated suite: 307 tests, 307 passed, 0 failed, 0 skipped
+## Automated suite: 332 tests (latest run: 332 passed, 0 failed, 0 skipped)
 
-Last full run, with deployed model v2.0.0: `307 passed in 67.98s`, 0 warnings
-in a normal run, on macOS arm64, Python 3.9.6, scikit-learn 1.6.1 and
-Chrome 153.
+Latest full run (2026-10-29, extension 2.0.0 and model v2.0.0; macOS arm64, Python **3.14.8** in `.venv`,
+scikit-learn 1.6.1, Google Chrome headless, Node.js 26 for the simulated extension tests): **`332 passed in
+86.10s`**.
 
-With `-W default`, 5 warnings appear, none from application code:
-- one urllib3 notice that macOS Python 3.9 uses LibreSSL;
-- four `ResourceWarning`s for unclosed sockets/files in test helpers.
+Three earlier runs the same day gave identical results each time, `2 failed, 330 passed`, so there were no
+flaky tests. Those 2 failures were **not caused by code**. `tests/test_pipeline.py::test_preserved_models_still_load` (two
+parameters) loads every archived model with its TLD table, and in the working tree two archived files are
+deleted but not committed:
+- `models/previous_v1.2.0/tld_legitimate_prob.json`
+- `models/alternatives/host_view_v1.3.0/tld_legitimate_prob.json`
+
+The two files were later restored in the working tree (byte-identical to `HEAD`), and the final run above
+passed completely. Before the extension work started, the suite had `2 failed, 305 passed` for the same
+reason.
+
+The earlier record of `307 passed` (2026-09-29) was measured with Python 3.9.6 before those files were
+deleted.
 
 | File | Tests | Covers |
 |---|---|---|
@@ -35,9 +46,11 @@ With `-W default`, 5 warnings appear, none from application code:
 | `tests/test_api.py` | 49 | Every endpoint, error contract and leak checks, extractor/model failure, model loaded once, OpenMP limit in request threads |
 | `tests/test_database.py` | 38 | Schema/migration, CRUD, pagination, filters, invalid ids, long/duplicate URLs, redaction, database failure |
 | `tests/test_security.py` | 58 | Rate limit, headers, CORS, no network access, internal hosts, SQL injection, path traversal, reflection, debug off, leak checks |
-| `tests/test_client_code.py` | 6 | Extension manifest and permissions, single API config, no unsafe DOM APIs / inline scripts / secrets |
+| `tests/test_client_code.py` | 7 | Extension manifest and permissions, origin-only automatic request, single API config, no unsafe DOM APIs / inline scripts / secrets |
+| `tests/test_extension_logic.py` | 1 (runs 47 Node tests) | **Simulated**: `tests/extension/background.test.js` runs the real `background.js` with a fake `chrome` API (skipped if Node.js is missing) |
 | `tests/browser/test_frontend_browser.py` | 21 | Web UI (Phase 4); see `docs/frontend.md` |
-| `tests/browser/test_extension_browser.py` | 14 | Extension (Phase 5); see `docs/extension.md` |
+| `tests/browser/test_extension_browser.py` | 14 | Extension popup (automatic checks off in this build); see `docs/extension.md` |
+| `tests/browser/test_extension_autoscan.py` | 23 | **Real Chrome**: automatic checks, warning page, Go Back to Safety, Continue Anyway, failures, stale responses, service-worker restart; see `docs/extension.md` |
 | `tests/browser/test_e2e.py` | 21 | Integration (Phase 6), below |
 
 ## End-to-end tests (`tests/browser/test_e2e.py`)
@@ -53,6 +66,31 @@ With `-W default`, 5 warnings appear, none from application code:
 | 8 | Database failure | `test_8_database_failure` | Unusable DB path: scan still works, "could not be saved" note, dashboard shows history unavailable |
 | 9 | Model loading failure | `test_9_model_loading_failure` | Missing model file: health `model_loaded: false`, banner, "Model not available", 503 without a file path |
 | 12 | Concurrent / repeated requests | `test_12_concurrent_requests`, `test_12_rate_limit_on_live_server` | 60 predictions over 12 threads plus 20 concurrent reads: all 200, 60 unique rows; rate limit gives 5×200 then 429 |
+
+## Extension 2.0.0 acceptance walkthrough (2026-10-29)
+
+Run against the **real** `python app.py` (port 5051, because macOS ControlCenter holds port 5000), in headless
+Chrome. The extension copy differed from `extension/` only in `API_BASE`/`host_permissions` (5051) and
+`AUTO_SCAN_DEFAULT`, checked with `diff -r`. Web pages were served by request interception, and the "high-risk"
+sites were synthetic `.example` names, so no real or malicious site was contacted.
+
+| Step | Result |
+|---|---|
+| 1. `https://www.wikipedia.org/` | Badge `LOW`, tooltip "…not a guarantee that it is safe." |
+| 2. `https://shop.example/` | Badge `MED`, tab not redirected |
+| 3. `https://secure-login-verify-account.example/login` | Tab moved to `warning.html`: host, "Phishing-risk prediction (high)", High, score 0.84, model 2.0.0 |
+| 4. Go Back to Safety | Returned to `https://shop.example/` (the previous checked page) |
+| 5. Continue Anyway | Stayed on the flagged URL after 1.5 s; badge `HIGH`, "You chose Continue Anyway…" |
+| 6. Same site in a second tab | Warned again (the bypass is tab-specific) |
+| 7. Go Back with no previous page | `safe.html` |
+| 8. Popup on the allowed tab | "Phishing-risk prediction (high)"; automatic line describes the Continue Anyway choice |
+| 9–10. History and stats | 4 rows, all `source=extension`, origin-only URLs for automatic checks; by_prediction Safe 1, Suspicious 1, Phishing 2 |
+| 11. Model served | `GradientBoostingClassifier` v2.0.0, registrable view, thresholds 0.5200 / 0.6443 |
+| 12. Dashboard | 4 rows rendered, no console errors |
+| 13. Server stopped | New page: badge `?`, "This site could NOT be checked: Cannot reach the scanner API…"; not redirected, not labelled low risk |
+
+The server log had no errors or tracebacks. Not performed: installing through the native **Load unpacked**
+folder picker, and clicking the real toolbar button in a headed browser.
 
 ## Manual acceptance walkthrough (performed 2026-09-29)
 

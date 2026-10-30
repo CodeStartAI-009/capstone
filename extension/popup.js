@@ -1,29 +1,14 @@
-/* Popup: read the active tab's URL (activeTab permission, granted when the user clicks the
- * toolbar icon), send it to the project API and show the API's result. There is no model
- * or prediction logic here; the Flask API is the single source of truth.
+/* Popup: read the active tab's URL, send it to the project API (scan-core.js) and show the API's
+ * result. A popup scan is a manual scan: it sends the full URL and is saved to the scan history.
+ * The popup also shows the background worker's automatic check for the tab (background.js) and
+ * the two settings stored in chrome.storage.local.
+ * There is no model or prediction logic here; the Flask API is the single source of truth.
  * All text is written with textContent (no innerHTML).
  */
 "use strict";
 
 const $ = (id) => document.getElementById(id);
 const MAX_REASONS = 4;
-const UNSUPPORTED_SCHEMES = {
-  "chrome:": "Chrome's internal pages",
-  "chrome-extension:": "extension pages",
-  "chrome-search:": "Chrome's internal pages",
-  "chrome-untrusted:": "Chrome's internal pages",
-  "devtools:": "developer tools",
-  "edge:": "browser internal pages",
-  "about:": "about: pages",
-  "file:": "local files",
-  "data:": "data: URLs",
-  "javascript:": "javascript: URLs",
-  "blob:": "blob: URLs",
-  "view-source:": "view-source pages",
-  "ftp:": "FTP addresses",
-};
-const VERDICT_CLASSES = { Safe: "safe", Suspicious: "suspicious", Phishing: "phishing" };
-
 let currentUrl = null;
 let busy = false;
 
@@ -40,64 +25,6 @@ function showError(message) {
 
 function percent(value) {
   return typeof value === "number" && isFinite(value) ? (value * 100).toFixed(1) + "%" : "not available";
-}
-
-/* Returns null if the URL can be scanned, otherwise a user-facing reason. */
-function unsupportedReason(url) {
-  if (typeof url !== "string" || !url) {
-    // Chrome does not reveal the address of its own pages (chrome://, about:, data: ...) to activeTab.
-    return "This page cannot be scanned. Only http:// and https:// web pages can be checked; browser pages, " +
-      "local files and data: URLs are not supported.";
-  }
-  let parsed;
-  try {
-    parsed = new URL(url);
-  } catch (err) {
-    return "This page's address is not a valid URL.";
-  }
-  if (parsed.protocol === "http:" || parsed.protocol === "https:") return null;
-  const kind = UNSUPPORTED_SCHEMES[parsed.protocol] || parsed.protocol + " addresses";
-  return "Only http:// and https:// web pages can be scanned. This tab shows " + kind + ".";
-}
-
-async function callApi(url) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-  let response;
-  try {
-    response = await fetch(API_BASE.replace(/\/+$/, "") + "/api/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: url, source: "extension", record: true }),
-      signal: controller.signal,
-      credentials: "omit",
-    });
-  } catch (err) {
-    if (controller.signal.aborted) {
-      throw new Error("The scanner API did not respond within " + REQUEST_TIMEOUT_MS / 1000 + " seconds. Try again.");
-    }
-    throw new Error("Cannot reach the scanner API at " + API_BASE + ". Start the Flask server (python app.py) and try again.");
-  } finally {
-    clearTimeout(timer);
-  }
-  let body;
-  try {
-    body = await response.json();
-  } catch (err) {
-    throw new Error("The scanner API returned an unexpected response (HTTP " + response.status + ").");
-  }
-  if (!body || typeof body !== "object") {
-    throw new Error("The scanner API returned an unexpected response.");
-  }
-  if (!response.ok || body.success !== true) {
-    const err = body.error;
-    throw new Error(err && typeof err.message === "string" ? err.message
-      : "The scanner API returned an error (HTTP " + response.status + ").");
-  }
-  if (typeof body.prediction !== "string" || !(body.prediction in VERDICT_CLASSES)) {
-    throw new Error("The scanner API returned an unexpected response.");
-  }
-  return body;
 }
 
 function render(result) {
@@ -135,7 +62,7 @@ async function scan() {
   $("details").hidden = true;
   show("loading");
   try {
-    render(await callApi(currentUrl));
+    render(await callApi(currentUrl, true));
     $("scan").textContent = "Scan again";
   } catch (err) {
     showError(err.message);
@@ -146,7 +73,39 @@ async function scan() {
 }
 
 function openPage(path) {
-  chrome.tabs.create({ url: API_BASE.replace(/\/+$/, "") + path });
+  chrome.tabs.create({ url: apiUrl(path) });
+}
+
+/* The automatic-scanning settings. The background worker reacts to changes (storage.onChanged). */
+async function loadSettings() {
+  const defaults = { autoScan: AUTO_SCAN_DEFAULT, recordAutoScans: RECORD_AUTO_SCANS_DEFAULT };
+  let settings = defaults;
+  try {
+    settings = { ...defaults, ...(await chrome.storage.local.get(defaults)) };
+  } catch (err) {
+    // storage unavailable: show the defaults
+  }
+  [["auto-scan", "autoScan"], ["record-auto", "recordAutoScans"]].forEach(([id, key]) => {
+    const box = $(id);
+    box.checked = settings[key] === true;
+    box.addEventListener("change", () => {
+      chrome.storage.local.set({ [key]: box.checked }).catch(() => {});
+      if (key === "autoScan") $("auto-status").textContent = box.checked ? "Automatic checks are on." :
+        "Automatic checks are off. Pages are checked only when you open this popup.";
+    });
+  });
+}
+
+/* One line describing the background worker's automatic check of this tab. */
+async function loadAutoStatus(tabId) {
+  let status = null;
+  try {
+    status = await chrome.runtime.sendMessage({ type: "status:get", tabId: tabId });
+  } catch (err) {
+    status = null;
+  }
+  $("auto-status").textContent = status && typeof status.text === "string" ? status.text
+    : "Automatic check status is not available.";
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -157,12 +116,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     const id = $("details").dataset.scanId;
     if (/^[1-9][0-9]*$/.test(id)) openPage("/inspect?id=" + id);
   });
+  let tab = null;
   try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     currentUrl = tab ? tab.url : null;
   } catch (err) {
     currentUrl = null;
   }
   $("url").textContent = currentUrl || "(address not available)";
+  loadSettings();
+  if (tab && Number.isInteger(tab.id)) loadAutoStatus(tab.id);
   scan();
 });

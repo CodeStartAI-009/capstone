@@ -4,7 +4,8 @@ A machine-learning phishing **risk assessment** for URLs. The project has four
 parts:
 - a **Flask REST API**, which runs the trained model;
 - a **web scanner and dashboard**, backed by SQLite scan history;
-- a **Chrome Manifest V3 extension**, which checks the current tab;
+- a **Chrome Manifest V3 extension**, which checks every page you open automatically (toolbar badge) and
+  shows a warning page with **Go Back to Safety** / **Continue Anyway** for high-risk sites;
 - a reproducible, leakage-controlled **ML pipeline**.
 
 > **Limitation:** results are automated risk signals, not guarantees. On
@@ -31,7 +32,9 @@ python app.py                       # http://127.0.0.1:5000
 - **Database:** created automatically at `instance/scan_history.db`, or wherever
   `DATABASE_PATH` points. No setup is needed.
 - **Chrome extension:** open `chrome://extensions`, enable Developer mode, click
-  **Load unpacked** and select `extension/`. Then click the icon on any web page.
+  **Load unpacked** and select `extension/`. Open any web page: the badge shows the automatic result
+  (LOW / MED / HIGH, `?` if it could not be checked); click the icon for details and settings. Automatic
+  checks send only the site's origin and are not stored by default; see [docs/extension.md](docs/extension.md).
 - **macOS:** if port 5000 is taken by the AirPlay receiver, run
   `API_PORT=5051 python app.py`. Then set the same origin in
   `extension/config.js` (`API_BASE`) and `extension/manifest.json`
@@ -47,16 +50,19 @@ curl -s -X POST http://127.0.0.1:5000/api/predict -H "Content-Type: application/
 ## Tests
 
 ```bash
-python -m pytest            # 289 tests: ML, API, database, security, plus 56 headless-Chrome tests
+python -m pytest            # 332 tests: ML, API, database, security, extension logic (Node), headless Chrome
+node --test tests/extension/      # simulated extension-logic tests only (47)
+python scripts/model_inventory.py # re-score every saved model artifact (read-only) → docs/data/model_inventory.json
 python scripts/benchmark_api.py   # measured API latency/throughput → docs/data/performance.json
 ```
 
-Browser tests use the installed Google Chrome and are skipped if it is missing.
+Browser tests use the installed Google Chrome and are skipped if it is missing; the extension-logic tests
+need Node.js 18+ and are skipped without it.
 See [docs/testing.md](docs/testing.md).
 
 ## Measured results
 
-**Model** (test split, 23,536 URLs, never used for training or tuning):
+**Model** (held-out test split, never used for training or tuning; v2.0.0 and v1.3.0 share one test set of 23,055 URLs, v1.2.0 used a different 23,536-URL host-grouped test set, so its row is not directly comparable):
 
 | Model | Split / view | Accuracy | Precision | Recall | F1 | ROC-AUC |
 |---|---|---|---|---|---|---|
@@ -93,7 +99,10 @@ didn't cause it. See [docs/model_evaluation.md](docs/model_evaluation.md).
 | Testing, acceptance, performance | [docs/testing.md](docs/testing.md) |
 | Dataset and leakage audit | [docs/dataset.md](docs/dataset.md) |
 | False-positive investigation (v2.0.0) | [docs/false_positive_investigation.md](docs/false_positive_investigation.md) |
-| Review-2 / viva preparation | [docs/REVIEW_2_AND_VIVA_GUIDE.md](docs/REVIEW_2_AND_VIVA_GUIDE.md), [docs/VIVA_QUICK_REFERENCE.md](docs/VIVA_QUICK_REFERENCE.md), [docs/PROJECT_KNOWLEDGE_MAP.md](docs/PROJECT_KNOWLEDGE_MAP.md) |
+| **Project knowledge handbook and viva Q&A (current)** | [docs/PROJECT_KNOWLEDGE_AND_VIVA_GUIDE.md](docs/PROJECT_KNOWLEDGE_AND_VIVA_GUIDE.md) |
+| **Review-2 speaking notes and demo script (current)** | [docs/REVIEW_2_VIVA_PREPARATION.md](docs/REVIEW_2_VIVA_PREPARATION.md) |
+| Latest implementation and validation report | [docs/IMPLEMENTATION_AND_VALIDATION_REPORT.md](docs/IMPLEMENTATION_AND_VALIDATION_REPORT.md) |
+| Earlier Review-2 / viva material (extension sections describe the old click-only popup) | [docs/REVIEW_2_AND_VIVA_GUIDE.md](docs/REVIEW_2_AND_VIVA_GUIDE.md), [docs/VIVA_QUICK_REFERENCE.md](docs/VIVA_QUICK_REFERENCE.md), [docs/PROJECT_KNOWLEDGE_MAP.md](docs/PROJECT_KNOWLEDGE_MAP.md) |
 | Model evaluation, error analysis | [docs/model_evaluation.md](docs/model_evaluation.md), [docs/ml_error_analysis.md](docs/ml_error_analysis.md) |
 
 ## Project layout
@@ -107,9 +116,10 @@ database/                 SQLite schema, migrations, repository
 models/                   deployed model v2.0.0, metadata, TLD table; previous_v1.2.0/, baseline_v1.1.0/,
                           alternatives/host_view_v1.3.0/ (preserved earlier/alternative models)
 templates/, static/       web frontend (no external assets)
-extension/                Chrome MV3 extension
+extension/                Chrome MV3 extension (service worker, warning page, popup)
 scripts/                  dataset audit, feature parity, benchmark, icon generator
 tests/, tests/browser/    automated tests (browser tests drive headless Chrome)
+tests/extension/          simulated extension-logic tests (Node, fake chrome API)
 data/                     PhiUSIIL dataset splits (read-only)
 ```
 

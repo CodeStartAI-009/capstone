@@ -110,7 +110,8 @@ deployment would need authentication first.
   database file.
 - **Residual risk:** URL *paths* are stored unchanged, and a few sites put
   tokens in the path.
-- **Extension:** it sends `"record": true` only for scans the user starts. It
-  has no automatic background scanning (see `docs/extension.md`).
+- **Extension:** popup scans (started by the user) send the full URL with `"record": true`. Automatic
+  checks send only the site's origin with `"record": false` unless the user enables "Save automatic checks to
+  the scan history" (see `docs/extension.md`).
 - **Retention:** the history is a local file, and the user can delete single
   scans or clear everything from the dashboard.

@@ -626,7 +626,7 @@
     "extended_feature_experiment_validation": {
       "schema_17": {
         "n_features": 17,
-        "threshold": 0.4990604516298321,
+        "threshold": 0.4990604516298322,
         "precision": 0.9121180464873335,
         "recall": 0.71341027474211,
         "f1": 0.8006189466445068,
@@ -635,12 +635,12 @@
       },
       "schema_17_plus_diagnostic_host_features": {
         "n_features": 23,
-        "threshold": 0.5074491012847446,
-        "precision": 0.9126150654738753,
-        "recall": 0.7189255438668165,
-        "f1": 0.8042733089579525,
+        "threshold": 0.5097024272165971,
+        "precision": 0.912535686478069,
+        "recall": 0.7182106015728731,
+        "f1": 0.8037949362747899,
         "false_positive_rate": 0.049981460882462,
-        "roc_auc": 0.8980220725131518
+        "roc_auc": 0.8983860383157415
       }
     }
   },
@@ -716,19 +716,19 @@
       }
     },
     "logistic_regression_standardised_coefficients": {
-      "NoOfDegitsInURL": 4.429185677403911,
-      "NoOfOtherSpecialCharsInURL": 2.9313617857951737,
-      "DegitRatioInURL": -2.64134070069405,
-      "SpacialCharRatioInURL": -2.224075107144889,
-      "LetterRatioInURL": -2.0399781260988816,
-      "URLLength": 1.153508969892092,
-      "DomainLength": 1.153508969892092,
-      "CharContinuationRate": -0.7015533629758272,
-      "NoOfLettersInURL": -0.4830425709596552,
-      "TLDLength": 0.3152516003224194,
-      "NoOfSubDomain": 0.24650562433022133,
-      "IsDomainIP": 0.11033052035534985,
-      "TLDLegitimateProb": -0.052062613861085225,
+      "NoOfDegitsInURL": 4.429185280314073,
+      "NoOfOtherSpecialCharsInURL": 2.9313619034244875,
+      "DegitRatioInURL": -2.641340492655699,
+      "SpacialCharRatioInURL": -2.224075164590911,
+      "LetterRatioInURL": -2.039978152917591,
+      "URLLength": 1.1535089370853315,
+      "DomainLength": 1.1535089370853315,
+      "CharContinuationRate": -0.70155337044258,
+      "NoOfLettersInURL": -0.4830424982707194,
+      "TLDLength": 0.3152515926626417,
+      "NoOfSubDomain": 0.24650561858749268,
+      "IsDomainIP": 0.11033050731868647,
+      "TLDLegitimateProb": -0.052062592768679986,
       "NoOfEqualsInURL": 0.0,
       "NoOfQMarkInURL": 0.0,
       "NoOfAmpersandInURL": 0.0,

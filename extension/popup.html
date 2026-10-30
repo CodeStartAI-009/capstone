@@ -35,10 +35,20 @@
     <button id="details" type="button" class="secondary" hidden>View details</button>
     <button id="dashboard" type="button" class="secondary">Open dashboard</button>
   </footer>
-  <p class="note">Only the URL is sent, to the project API at <span id="api-base"></span>. The page is not read,
-    modified or blocked.</p>
+
+  <section class="settings" aria-labelledby="settings-title">
+    <p class="label" id="settings-title">Automatic checks</p>
+    <p id="auto-status" class="auto-status" aria-live="polite"></p>
+    <label class="toggle"><input type="checkbox" id="auto-scan"> Check pages automatically and warn before
+      high-risk sites</label>
+    <label class="toggle"><input type="checkbox" id="record-auto"> Save automatic checks to the scan history</label>
+  </section>
+  <p class="note">Only addresses are sent, to the project API at <span id="api-base"></span>: the full URL when
+    you open this popup, and only the site's origin (for example https://example.com) for automatic checks. Page
+    contents, form fields, passwords and cookies are never read.</p>
 
   <script src="config.js"></script>
+  <script src="scan-core.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

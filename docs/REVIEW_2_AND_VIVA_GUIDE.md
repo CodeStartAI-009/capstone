@@ -1,4 +1,11 @@
 # AI-Powered Real-Time Phishing URL Detection Using Machine Learning and Browser Extension
+
+> **Note (2026-10-29):** the Chrome extension changed after this document was written. It now checks pages
+> automatically with a background service worker (`tabs` and `storage` permissions, origin-only requests) and
+> shows a warning page with Go Back to Safety / Continue Anyway. Statements here about `activeTab`, "no
+> background worker" or click-only scanning are out of date. Current material:
+> `docs/PROJECT_KNOWLEDGE_AND_VIVA_GUIDE.md`, `docs/REVIEW_2_VIVA_PREPARATION.md`, `docs/extension.md`.
+
 ## Review-2 Technical and Viva Preparation Guide
 
 This guide was built from the repository as of **2026-09-29**.

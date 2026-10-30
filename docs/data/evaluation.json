@@ -99,7 +99,7 @@
           "false_positive_rate": 0.0,
           "n": 23580
         },
-        "fit_seconds": 0.34
+        "fit_seconds": 0.29
       },
       "random_forest": {
         "validation": {
@@ -132,7 +132,7 @@
           "false_positive_rate": 0.0,
           "n": 23580
         },
-        "fit_seconds": 3.13
+        "fit_seconds": 3.92
       },
       "gradient_boosting": {
         "validation": {
@@ -165,7 +165,7 @@
           "false_positive_rate": 7.415647015202076e-05,
           "n": 23580
         },
-        "fit_seconds": 1.9
+        "fit_seconds": 4.06
       },
       "rule_baseline": {
         "test": {
@@ -219,7 +219,7 @@
           "precision": 0.8334910122989593,
           "recall": 0.6113203806502776,
           "f1": 0.7053239549379539,
-          "roc_auc": 0.7981725296442107,
+          "roc_auc": 0.7981710337241398,
           "confusion_matrix": {
             "legitimate_correct_TN": 12253,
             "legitimate_flagged_FP": 1232,
@@ -234,7 +234,7 @@
           "precision": 0.8426644871270944,
           "recall": 0.6129000297235708,
           "f1": 0.7096478146151198,
-          "roc_auc": 0.7986242112241948,
+          "roc_auc": 0.7986265182817226,
           "confusion_matrix": {
             "legitimate_correct_TN": 12330,
             "legitimate_flagged_FP": 1155,
@@ -277,7 +277,7 @@
           "false_positive_rate": 0.04657026325546904,
           "n": 23578
         },
-        "fit_seconds": 0.21
+        "fit_seconds": 0.22
       },
       "random_forest": {
         "validation": {
@@ -310,7 +310,7 @@
           "false_positive_rate": 0.04961067853170189,
           "n": 23578
         },
-        "fit_seconds": 3.24
+        "fit_seconds": 4.28
       },
       "gradient_boosting": {
         "validation": {
@@ -343,7 +343,7 @@
           "false_positive_rate": 0.046199480904708934,
           "n": 23578
         },
-        "fit_seconds": 1.88
+        "fit_seconds": 6.42
       },
       "rule_baseline": {
         "test": {
@@ -431,7 +431,7 @@
           "precision": 0.9985964912280701,
           "recall": 0.9910456670978012,
           "f1": 0.9948067512234096,
-          "roc_auc": 0.9984691458802968,
+          "roc_auc": 0.9984691421912872,
           "confusion_matrix": {
             "legitimate_correct_TN": 13471,
             "legitimate_flagged_FP": 14,
@@ -446,7 +446,7 @@
           "precision": 0.9989978955807195,
           "recall": 0.9917429367290092,
           "f1": 0.9953571963456642,
-          "roc_auc": 0.9985858150151654,
+          "roc_auc": 0.9985858297697359,
           "confusion_matrix": {
             "legitimate_correct_TN": 13475,
             "legitimate_flagged_FP": 10,
@@ -456,7 +456,7 @@
           "false_positive_rate": 0.0007415647015202076,
           "n": 23537
         },
-        "fit_seconds": 0.11
+        "fit_seconds": 0.1
       },
       "decision_tree": {
         "validation": {
@@ -489,7 +489,7 @@
           "false_positive_rate": 0.0011865035224323322,
           "n": 23537
         },
-        "fit_seconds": 0.22
+        "fit_seconds": 0.21
       },
       "random_forest": {
         "validation": {
@@ -522,7 +522,7 @@
           "false_positive_rate": 0.00096403411197627,
           "n": 23537
         },
-        "fit_seconds": 3.27
+        "fit_seconds": 4.19
       },
       "gradient_boosting": {
         "validation": {
@@ -555,7 +555,7 @@
           "false_positive_rate": 0.0005932517612161661,
           "n": 23537
         },
-        "fit_seconds": 1.2
+        "fit_seconds": 3.82
       },
       "rule_baseline": {
         "test": {
@@ -609,7 +609,7 @@
           "precision": 0.8345449649973075,
           "recall": 0.616754551785892,
           "f1": 0.7093083128325419,
-          "roc_auc": 0.7982898489487079,
+          "roc_auc": 0.7982930620760338,
           "confusion_matrix": {
             "legitimate_correct_TN": 12256,
             "legitimate_flagged_FP": 1229,
@@ -624,7 +624,7 @@
           "precision": 0.8346025384101536,
           "recall": 0.6214683645045762,
           "f1": 0.7124365626960142,
-          "roc_auc": 0.7992119731567152,
+          "roc_auc": 0.7992106710658894,
           "confusion_matrix": {
             "legitimate_correct_TN": 12247,
             "legitimate_flagged_FP": 1238,
@@ -634,7 +634,7 @@
           "false_positive_rate": 0.0918057100482017,
           "n": 23537
         },
-        "fit_seconds": 0.16
+        "fit_seconds": 0.17
       },
       "decision_tree": {
         "validation": {
@@ -667,7 +667,7 @@
           "false_positive_rate": 0.05257693733778272,
           "n": 23537
         },
-        "fit_seconds": 0.21
+        "fit_seconds": 0.2
       },
       "random_forest": {
         "validation": {
@@ -700,7 +700,7 @@
           "false_positive_rate": 0.05139043381535039,
           "n": 23537
         },
-        "fit_seconds": 3.2
+        "fit_seconds": 4.42
       },
       "gradient_boosting": {
         "validation": {
@@ -733,7 +733,7 @@
           "false_positive_rate": 0.05064886911383018,
           "n": 23537
         },
-        "fit_seconds": 2.08
+        "fit_seconds": 6.39
       },
       "rule_baseline": {
         "test": {
@@ -833,7 +833,7 @@
           "precision": 0.8141114499584142,
           "recall": 0.5998365846185272,
           "f1": 0.6907380182299324,
-          "roc_auc": 0.7903472489755959,
+          "roc_auc": 0.7903476541815149,
           "confusion_matrix": {
             "legitimate_correct_TN": 12144,
             "legitimate_flagged_FP": 1341,
@@ -848,7 +848,7 @@
           "precision": 0.8276437371663244,
           "recall": 0.6416915422885572,
           "f1": 0.7229010200650151,
-          "roc_auc": 0.8080701637887975,
+          "roc_auc": 0.8080767230140267,
           "confusion_matrix": {
             "legitimate_correct_TN": 12143,
             "legitimate_flagged_FP": 1343,
@@ -858,7 +858,7 @@
           "false_positive_rate": 0.09958475456028473,
           "n": 23536
         },
-        "fit_seconds": 0.18
+        "fit_seconds": 0.19
       },
       "decision_tree": {
         "validation": {
@@ -891,7 +891,7 @@
           "false_positive_rate": 0.04901379208067626,
           "n": 23536
         },
-        "fit_seconds": 0.21
+        "fit_seconds": 0.2
       },
       "random_forest": {
         "validation": {
@@ -924,7 +924,7 @@
           "false_positive_rate": 0.04782737653863266,
           "n": 23536
         },
-        "fit_seconds": 3.31
+        "fit_seconds": 4.6
       },
       "gradient_boosting": {
         "validation": {
@@ -957,7 +957,7 @@
           "false_positive_rate": 0.05116417025063028,
           "n": 23536
         },
-        "fit_seconds": 2.67
+        "fit_seconds": 6.37
       },
       "rule_baseline": {
         "test": {
@@ -1238,5 +1238,5 @@
     }
   },
   "probe_note": "hand-picked legitimate URLs; illustrative, not a population sample",
-  "runtime_seconds": 59.4
+  "runtime_seconds": 77.6
 }

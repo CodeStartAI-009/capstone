@@ -18,22 +18,43 @@ def manifest():
 def test_manifest_is_mv3_with_minimal_permissions():
     m = manifest()
     assert m["manifest_version"] == 3
-    assert m["permissions"] == ["activeTab"]
+    # tabs: read tab URLs for automatic checks; storage: settings + per-tab state (no page access at all)
+    assert m["permissions"] == ["tabs", "storage"]
     assert m["host_permissions"] == ["http://127.0.0.1:5000/*"]
-    for broad in ("tabs", "history", "webRequest", "cookies", "scripting", "storage", "<all_urls>"):
+    for broad in ("history", "webRequest", "webRequestBlocking", "declarativeNetRequest", "cookies", "scripting",
+                  "webNavigation", "clipboardRead", "<all_urls>"):
         assert broad not in m["permissions"] and broad not in json.dumps(m["host_permissions"])
-    assert "content_scripts" not in m and "background" not in m
+    assert m["background"] == {"service_worker": "background.js"}
+    # No content scripts, no pages exposed to websites, no messaging from websites or other extensions.
+    for key in ("content_scripts", "web_accessible_resources", "externally_connectable", "optional_permissions",
+                "optional_host_permissions"):
+        assert key not in m, key
     assert "unsafe" not in m["content_security_policy"]["extension_pages"]
+
+
+def test_background_worker_sends_only_the_origin_and_never_page_data():
+    code = code_without_comments(EXT / "background.js")
+    assert 'importScripts("config.js", "scan-core.js")' in code
+    assert re.findall(r"callApi\(([^,]+),", code) == ['origin + "/"']
+    for forbidden in ("chrome.scripting", "executeScript", "chrome.cookies", "chrome.history", "document.",
+                      "localStorage", "chrome.webRequest"):
+        assert forbidden not in code, forbidden
+    core = code_without_comments(EXT / "scan-core.js")
+    assert 'credentials: "omit"' in core
+    assert "JSON.stringify({ url: url, source: \"extension\", record: record })" in core
 
 
 def test_manifest_files_exist():
     m = manifest()
-    paths = [m["action"]["default_popup"], *m["action"]["default_icon"].values(), *m["icons"].values()]
+    paths = [m["action"]["default_popup"], m["background"]["service_worker"], *m["action"]["default_icon"].values(),
+             *m["icons"].values(), "warning.html", "safe.html"]
     for rel in paths:
         assert (EXT / rel).is_file(), rel
-    html = (EXT / "popup.html").read_text()
-    for src in re.findall(r'(?:src|href)="([^"]+)"', html):
-        assert (EXT / src).is_file(), src
+    for page in EXT.glob("*.html"):
+        for src in re.findall(r'(?:src|href)="([^"]+)"', page.read_text()):
+            assert (EXT / src).is_file(), f"{page.name}: {src}"
+    for name in re.findall(r'importScripts\(([^)]*)\)', (EXT / "background.js").read_text())[0].split(","):
+        assert (EXT / name.strip().strip('"')).is_file(), name
 
 
 def test_api_base_is_configured_in_one_place_and_matches_host_permissions():
@@ -57,7 +78,7 @@ def test_no_unsafe_dom_apis_in_client_code():
 
 
 def test_no_inline_scripts_or_handlers_in_templates_and_popup():
-    for path in [*(ROOT / "templates").glob("*.html"), EXT / "popup.html"]:
+    for path in [*(ROOT / "templates").glob("*.html"), *EXT.glob("*.html")]:
         text = path.read_text()
         assert not re.search(r"<script(?![^>]*\bsrc=)[^>]*>", text), path.name
         assert not re.search(r"\son[a-z]+\s*=", text), path.name

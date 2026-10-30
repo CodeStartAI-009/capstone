@@ -1,12 +1,14 @@
 """Chrome extension in real headless Chrome (Phase 5).
 
 The unpacked extension is loaded with Extensions.loadUnpacked and the popup is opened with
-Extensions.triggerAction, which simulates the user clicking the toolbar icon, so Chrome grants
-the real `activeTab` permission. The copy under test differs from extension/ only in the API
-origin (config.js API_BASE and the matching manifest host_permissions), which points at a
-test server.
+Extensions.triggerAction, which simulates the user clicking the toolbar icon. The copy under test
+differs from extension/ only in the API origin (config.js API_BASE and the matching manifest
+host_permissions), which points at a test server, and, for these popup tests, in
+AUTO_SCAN_DEFAULT = false, so the background worker's automatic checks do not act on the test tabs.
+Automatic checks are tested in tests/browser/test_extension_autoscan.py.
 """
 import json
+import re
 import shutil
 import socket
 import threading
@@ -22,12 +24,17 @@ EXTENSION_DIR = Path(__file__).resolve().parents[2] / "extension"
 POPUP_STATE = ("!document.getElementById('result').hidden || !document.getElementById('error').hidden")
 
 
-def build_extension(tmp_path, api_base):
-    target = tmp_path / f"ext-{abs(hash(api_base))}"
+def build_extension(tmp_path, api_base, auto_scan=False, overrides=None):
+    target = tmp_path / f"ext-{abs(hash((api_base, auto_scan)))}"
     shutil.copytree(EXTENSION_DIR, target)
     config = (target / "config.js").read_text()
     assert config.count('"http://127.0.0.1:5000"') == 1
-    (target / "config.js").write_text(config.replace('"http://127.0.0.1:5000"', json.dumps(api_base)))
+    config = config.replace('"http://127.0.0.1:5000"', json.dumps(api_base))
+    for name, value in {"AUTO_SCAN_DEFAULT": auto_scan, **(overrides or {})}.items():
+        line = re.search(rf"const {name} = [^;]+;", config)
+        assert line, name
+        config = config.replace(line.group(0), f"const {name} = {json.dumps(value)};")
+    (target / "config.js").write_text(config)
     manifest = json.loads((target / "manifest.json").read_text())
     manifest["host_permissions"] = [api_base + "/*"]
     (target / "manifest.json").write_text(json.dumps(manifest))
@@ -169,13 +176,15 @@ def test_details_and_dashboard_buttons_open_the_web_app(chrome, live_server, ext
 
 
 # --- unsupported pages: rejected in the popup, nothing sent to the API ------------------------------
-# Chrome does not expose these pages' URLs to activeTab at all, so the popup cannot even see them.
-@pytest.mark.parametrize("url", ["chrome://version/", "about:blank", "data:text/html,<h1>x</h1>"])
-def test_unsupported_schemes_are_not_sent(chrome, live_server, extension_for, url):
+# With the "tabs" permission Chrome reveals these URLs, so the popup names the kind of page.
+@pytest.mark.parametrize("url,kind", [("chrome://version/", "Chrome's internal pages"), ("about:blank", "about: pages"),
+                                      ("data:text/html,<h1>x</h1>", "data: URLs")])
+def test_unsupported_schemes_are_not_sent(chrome, live_server, extension_for, url, kind):
     ext_id = extension_for(live_server.url)
     before = history(live_server)["total"]
     tab, popup = scan_via_popup(chrome, ext_id, url)
-    assert popup_text(popup, "error").startswith("This page cannot be scanned. Only http:// and https://")
+    assert popup_text(popup, "error") == ("Only http:// and https:// web pages can be scanned. This tab shows "
+                                          f"{kind}.")
     assert popup.js("document.getElementById('result').hidden") is True
     time.sleep(0.3)
     assert history(live_server)["total"] == before
