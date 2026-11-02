@@ -13,12 +13,7 @@ venv/
 # Runtime data (scan history database)
 instance/
 
-# DistilBERT models and checkpoints
-distilbert_model/
-distilbert_model_clean/
 
-# Generated results from the original experiment scripts
-results/
 
 # NOTE: data/*.csv and models/*.joblib were committed in the initial commit
 # and remain tracked. New large generated artefacts should not be added.
